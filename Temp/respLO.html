@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> CRYPTOGRAPHY GAME </title>
+</head>
+
+<style>
+@font-face {
+    font-family: telegrama;
+    src: url('Assets/telegrama_raw.ttf');
+}
+
+:root {
+    --bg-color: #032113;
+    --prm-color: #21f396;
+    --sec-color: #258457;
+    --green-color: #A6E22E;    /* #adff2f; */
+    --cyan-color: #66D9EF;    /* #87ceeb; */
+    --kh-color: #bdb76b;
+    --border-color: #E6DB74;
+    --blbg-color: #241E4E;
+    --txt-color: #fafad2;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: telegrama, consolas, sans-serif;
+}
+
+body {
+    font-size: 1.2em;
+    margin: 0;
+    background: url('Assets/BG.jpg');
+    background-size: auto;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: 70px auto; 
+    grid-template-areas:
+        'left-col top-row'
+        'left-col main-ar';
+    background-color: #000;
+    color: #fafad2;
+    border: 0.5px #bdb76b solid;
+    max-width: 175vh;
+    min-width: 90vw;
+    min-height: 100vh;
+    margin: auto;
+}
+
+.container div{
+     padding: 0 0.5px;
+}
+
+/* --------------------------------------------- STYLING LEFT CONTAINER  */
+.left-container {
+    grid-area: left-col;
+    display: flex;
+    flex-direction: column;
+    background-color: #003;
+    border: 0.5px #bdb76b solid;
+    justify-content: space-evenly;
+}
+
+.lg-row {
+    display: flex;
+}
+
+.lgr1 {
+    color: skyblue;
+    margin:0 3px;
+}
+
+.lgr2 {
+    color: greenyellow;
+    margin:0 3px;
+}
+
+.lgr3 {
+    width: 1.3em;
+    text-align: end;
+    margin:0 5px;
+}
+
+/* ------------------------------ STYLING MAIN CONTAINER  */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    border: 0.5px darkkhaki solid;
+}
+
+/* ----------------------------- STYLING TOP MENU          */
+
+.main-top {
+    grid-area: top-row;
+    max-height: 70px;
+        background-color: #040;
+        font-weight: 100;
+        padding: 10px;
+        border: 0.5px solid var(--border-color);
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 35px 35px;
+        grid-template-areas:
+            "a1 a2 a3"
+            "b1 b2 b3";
+        justify-items: center;
+    }
+
+    .main-top > div {
+        padding: 5px;
+    }
+    #msg {
+        grid-area: a1;
+        align-self: center;
+        text-align: center;
+        white-space: nowrap;
+    }
+    #cw {
+        grid-area: a2;
+        align-self: center;
+        text-align: center;
+    }
+    #timer {
+        grid-area: a3;
+        align-self: center;
+        text-align: center;
+    }
+
+    .menu-btns {
+        width: 100%;
+        grid-area: b1;
+        perspective: 1000px;
+    }
+
+    .menu-btns-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        /* display: flex;
+        align-items: center;
+        justify-content: center; */
+        transition: transform 0.5s;
+        transform-style: preserve-3d;
+    }
+
+    .menu-btns:hover .menu-btns-inner {
+        transform: rotateX(180deg);
+    }
+
+    #menu-icon, #three-btns {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    svg.icon {
+        width: 100%;
+        height: auto;
+        fill: #66D9EF
+    }
+
+    #three-btns {
+        transform: rotateX(180deg);
+    }
+    #three-btns > button {
+        width: 50%;
+    }
+
+    .letter-input {
+        grid-area: b2;
+        display: none;
+    }
+
+    .hint-btn {
+        width: 100%;
+        grid-area: b3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .hint-btn > button {
+        width: 100%;
+        }
+
+    /* .menu-btns:hover #three-btns {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+    }
+    .menu-btns:hover #menu-icon {
+        display: flex;
+        display: none;
+    } */
+
+/* ------------------------------ STYLING MAIN GRID */
+
+.main-grid {
+    grid-area: main-ar;
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.cell {
+    margin: 2px 0px;
+}
+
+.cell-top {
+    color: greenyellow;
+}
+
+.cell-bottom {
+    color: var(--cyan-color);
+}
+
+/* For mobile screens */
+
+@media (max-width: 768px) {
+    body {
+        font-size: 1.1em;
+    }
+
+    .container {
+    display: grid;
+    grid-template-areas:
+        'top-row top-row'
+        'left-col main-ar';
+    }
+    .main-top {
+        font-size: 2.5vw;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 1em;
+    }
+    .container {
+        min-width: 375px;
+    }
+}
+</style>
+
+<body>
+    <div class="container">
+
+        <div class="left-container" id='left-container'>
+            <!-- LEFT CONTAINER CELL SAMPLE 
+            <div class="lg-row">
+                <div class="lgr1" id="lg-a1">Z</div>
+                <div class="lgr2" id="lg-a2">A</div>
+                <div class="lgr3" id="lg-a3"></div>
+            </div>
+            -->
+        </div>
+
+        <!-- <div class="main-container"> -->
+
+            <div class="main-top">
+                <div id="cw">CRYPTO TERMINAL</div>
+                <div id="msg">MSG #9.X000</div>
+                <div id="timer">0000</div>
+
+                
+                <div class="menu-btns">
+                    <div class="menu-btns-inner">
+                        <div id="menu-icon">
+                            <svg focusable="false" viewBox="0 0 128 128" width="35" height="35" class="icon">
+                                <path
+                                    d="m2e1 95a9 9 0 0 1 -9 9 9 9 0 0 1 -9 -9 9 9 0 0 1 9 -9 9 9 0 0 1 9 9zm0-3e1a9 9 0 0 1 -9 9 9 9 0 0 1 -9 -9 9 9 0 0 1 9 -9 9 9 0 0 1 9 9zm0-3e1a9 9 0 0 1 -9 9 9 9 0 0 1 -9 -9 9 9 0 0 1 9 -9 9 9 0 0 1 9 9zm14 55h68v1e1h-68zm0-3e1h68v1e1h-68zm0-3e1h68v1e1h-68z">
+                                </path>
+                            </svg>
+                        </div>
+                        
+                        <div id="three-btns">
+                            <button title="Exit to Main Menu" onclick="exitToMain()">EXIT</button>
+                            <button title="Generate New Message" onclick="restartGame()">ReST</button>
+                            <button title="Show Decoded Message" onclick="showAllLetters()">GIUP</button>
+                        </div>
+                    </div>             
+                </div>
+
+                <div class="letter-input">
+                    <input  type="text" id="" maxlength="1" size="1">
+                    <input  type="text" id="" maxlength="1" size="1">
+                </div>
+
+                <div class="hint-btn">
+                    <button title="Show Hint" onclick="showOneLetter()">SHOW</button>
+                </div>
+
+            </div>
+
+            <div class="main-grid" id="main-grid">
+                <!-- MAIN GRID CELL SAMPLE 
+                <div class="cell">
+                    <div class="cell-top" id="A001">A</div>
+                    <div class="cell-bottom"id="B001">Z</div>
+                </div>-->
+            </div>
+
+        <!-- </div> -->
+
+    </div>
+</body>
+
+<script src="script.js"></script>
+
+</html>

@@ -1,0 +1,34 @@
+31.05.2020
+
+!!!!!!! find git instructions from Travesty 
+
+!!!!!!! hintArray 
+	0 - top letter
+	1 - top letter
+	2 - top half
+	3 - top half
+	4 - bottom half
+	5 - bottom half 
+
+
+2. Back: upload Msgs from JSON
+12.Back: Game page -> Impove scrumble method at higher difficulty
+	5 - top frq letter split 
+
+7. Back: Win condition (-5 letters i.e.)
+	0: -5 letters
+	......
+	4: -1 letter
+	5:  0 letter
+	
+8. Back: Hint should not choose correctly guessed letter
+
+5. DONE - - - - - fe:   Game page  -> responsive 
+10.DONE - - - - - fe: FlipBox game menu buttons
+
+3. fe:   Game menu buttons -> nice icons
+4. fe:   Game page color styling
+6. fe:   Update Info Page -> Home button -> icon
+9. fe:   add YOU WIN window and dialog
+9. fe:	 add YOU LOOSE window and dialog
+11.fe:	 Game page -> scalable font-size

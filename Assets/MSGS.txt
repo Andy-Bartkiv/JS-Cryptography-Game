@@ -1,0 +1,28 @@
+<Org1> is ready to reward you for your success. 
+You are instructed to acquire current passwords for the <Target Mainframe>. 
+A courier will arrive shortly to pick up this information.
+Our project here in <city1> proceeds on schedule.
+None doubt your loyalty.
+We are confident your work in <city2> will continue on schedule.
+Fellow warriors of the <org2> now is the time for action.
+
+1.
+"You are instructed to acquire current passwords for the <Target Mainframe>. 
+A courier will arrive shortly to pick up this information."
+
+2.
+"You must access the data files containing <Target Data> on the <Target Mainframe>. 
+Appropriate passwords will be delivered to you."
+
+3.
+"To further our plan we must access a data file containing <Target Data>. 
+Please help finance these arrangements."
+
+Noice:
+1. 
+<Org1> is ready to reward you for your success. 
+<MSG1>.
+Our project here in <city1> proceeds on schedule.
+None doubt your loyalty.
+We are confident your work in <city2> will continue on schedule.
+Fellow warriors of the <org2> now is the time for action.

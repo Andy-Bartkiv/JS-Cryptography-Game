@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Info & Rules</title>
+    <link rel="stylesheet" href="info-styles.css">
+</head>
+
+<body>
+    <nav id="navbar">
+        <header>Crypto-Game Info & Rules</header>
+        <div id="navbar-ul">
+            <div class="nav-div" id='return-bttn'>
+                <a class="nav-link" href="index.html">- H -</a>
+            </div>
+            <div class="nav-div" id = "nl-l">
+                <a class="nav-link" href="#Section_1">Game Introduction</a></div>
+            <div class="nav-div" id = "nl-l">
+                <a class="nav-link" href="#Section_3">Crypto Workstation</a></div>
+            <div class="nav-div"><a class="nav-link" href="#Section_4">The Code Algorithm</a></div>
+            <div class="nav-div"><a class="nav-link" href="#Section_5">Decrypting the Code</a></div>
+        </div>
+    </nav>
+
+    <main id="main-doc">
+        <section class="main-section" id="Section_1">
+            <header>Game Introduction</header>
+            <p>Cryptography is one of the four Mini-Games playable during the gameplay of the
+                classic Microprose / Sid Meier game "Covert Action", released in 1990.</p>
+            <p>For more info about original Sid Meier's Covert Action game visit <a
+                    href="https://en.wikipedia.org/wiki/Sid_Meier%27s_Covert_Action" target="_blank">Wikipedia</a>
+                and
+                <a href="https://covertaction.fandom.com/wiki/Covert_Action_Wiki" target="_blank">Fandom Wiki</a>
+            </p>
+            <p>
+                The protagonist of
+                Covert Action is Maximillian (or Maxine) Remington, often referred to simple as "Max" Remington. Max is
+                a super-agent working for the CIA, whose task is to almost single-handedly disrupt
+                criminal and terrorist activities in various areas around the world.
+            </p>
+            <p>The Gryptography mini-game itself is pretty straight-forward, and involves switching letters of the
+                English Alphabet to decipher the contents of the scrambled message.</p>
+        </section>
+
+        <section class="main-section" id="Section_3">
+            <header>Crypto Workstation</header>
+            <div class='img-wrap-right'>
+                <img src="Assets/CW-img-1.png" alt="The original Cryptography Mini-Game screen">
+            </div>
+            <p>
+                The Mini-Game screen is divided into two parts. In the main (larger) part, the coded message will
+                appear. It'll show up as a mess of English letters which make no sense. Depending on the current
+                Difficulty setting, the letters may be interspersed with spaces and/or punctuation marks.
+            </p>
+            <p>
+                On the left side is a list of all 26 letters in the English language, shown in bright green. As
+                player works to decodes the message, cyan-colored letters will appear next to each of these, to
+                denote that player has chosen to replace the original letter with a new one. In addition, a number
+                is shown next to each letter to indicate how many times it appears in the message - this can be very
+                useful as will be explained below.
+            </p>
+            <p>
+                A clock is also visible at the top-right corner of the screen. This keeps track of the amount of
+                time it's taking you to complete the decoding process. There is no actual limit, but of course
+                you'll want to spend as little time as possible to complete the message, as wasted time will come
+                off your game clock once the mini-game is over.
+            </p>
+        </section>
+
+        <section class="main-section" id="Section_4">
+            <header>The Code Algorithm</header>
+            <p>
+                The enemy uses a very simple type of code in its transmissions, a Substitution Cipher. In this form
+                of encryption, each letter of the alphabet has been substituted for another letter.
+            </p>
+            <p>
+                For example, let's take the word "NEEDED". We replace every "E" with a "D", every "D" with a "Y",
+                and every "N" with an "X". The result is "XDDYDY".
+                The same replacement is used throughout the entire message. Therefore, the words "NED NEEDED ENDED"
+                would read "XDY XDDYDY DXYDY".
+            </p>
+            <p>
+                This is a fairly simple code in modern cryptography standards, but it's also easy enough to be
+                solvable without frustrating players needlessly. It can be pretty tricky anyway - especially on
+                higher difficulty settings, where you have no spaces separating the words!
+            </p>
+        </section>
+
+        <section class="main-section" id="Section_5">
+            <header>Decrypting the Code</header>
+            <p>
+                When the mini-game begins, the game displays the entire coded message on-screen.
+            </p>
+            <p>
+                The contents of the original message are in plain English, and make up intelligible sentences like
+                "We of the Red Brotherhood salute you" and so forth. However, since the letters are scrambled, the
+                message is not going to be readable until it's decoded.
+            </p>
+            <p>
+                The idea is to replace each letter of the coded alphabet with the correct letter, to make sense of
+                the message. To replace a letter, simply press the key corresponding to the original letter in the
+                coded message, then press the key for the letter you want to replace it with.
+            </p>
+            <p>
+                Once a replacement has been made, the game will place the "New" letter - in cyan - Below the
+                original letter. It will automatically do so for the entire message.
+            </p>
+            <p>
+                <b>Example:</b>
+            </p>
+            <div class='img-wrap-right'>
+                <img src="Assets/CW-img-3.png" alt="Example" style="height: 100%;">
+            </div>
+            <p>
+                1. We see the word "XDDYDY" in the code. We press "D" to select the letter D, and then press "E" to
+                replace it with the letter E. The game will now place the letter "E" in cyan below each instance of
+                the letter D in the code.
+            </p>
+            <p>
+                2. Next we press "Y" and then "D". The game now shows the letter D in cyan below each instance of
+                the letter "Y".
+            </p>
+            <p>
+                3. Finally, we press "X" and then "N". The game will place the cyan letter N below each instance of
+                the letter "X" throughout the entire code.
+            </p>
+            <p>
+                4. We've solved a word! And hopefully, we've also made some other words more intelligible and easier
+                to decode.
+            </p>
+            <p>
+                We repeat the process, switching each letter in the alphabet with the correct one in order to
+                reconstruct the original message.
+            </p>
+        </section>
+
+    </main>
+
+    <div class="footer">
+        <footer>&#9965 2020 Andy Bartkiv</footer>
+    </div>
+
+</body>
+
+</html>

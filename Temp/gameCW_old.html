@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> CRYPTOGRAPHY GAME </title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+
+</style>
+
+<body>
+    <div class="container">
+
+        <div class="left-container" id='left-container'>
+            <!-- LEFT CONTAINER CELL SAMPLE 
+            <div class="lg-row">
+                <div class="lgr1" id="lg-a1">Z</div>
+                <div class="lgr2" id="lg-a2">A</div>
+                <div class="lgr3" id="lg-a3"></div>
+            </div>
+            -->
+        </div>
+
+        <div class="main-container">
+
+            <div class="main-top">
+                <div id="cw">CRYPTO TERMINAL</div>
+                <div id="msg">MSG #9.X000</div>
+                <div id="timer">0000</div>
+
+                
+                <div class="menu-btns">
+                    <div class="menu-btns-inner">
+                        <div id="menu-icon">
+                            <svg focusable="false" viewBox="0 0 128 128" width="35" height="35" class="icon">
+                                <path
+                                    d="m2e1 95a9 9 0 0 1 -9 9 9 9 0 0 1 -9 -9 9 9 0 0 1 9 -9 9 9 0 0 1 9 9zm0-3e1a9 9 0 0 1 -9 9 9 9 0 0 1 -9 -9 9 9 0 0 1 9 -9 9 9 0 0 1 9 9zm0-3e1a9 9 0 0 1 -9 9 9 9 0 0 1 -9 -9 9 9 0 0 1 9 -9 9 9 0 0 1 9 9zm14 55h68v1e1h-68zm0-3e1h68v1e1h-68zm0-3e1h68v1e1h-68z">
+                                </path>
+                            </svg>
+                        </div>
+                        
+                        <div id="three-btns">
+                            <button title="Exit to Main Menu" onclick="exitToMain()">EXIT</button>
+                            <button title="Generate New Message" onclick="restartGame()">ReST</button>
+                            <button title="Show Decoded Message" onclick="showAllLetters()">GIUP</button>
+                        </div>
+                    </div>             
+                </div>
+
+                <div class="letter-input">
+                    <input  type="text" id="input-A" maxlength="1" size="1">
+                    <input  type="text" id="input-Z" maxlength="1" size="1">
+                </div>
+
+                <div class="hint-btn">
+                    <button title="Show Hint" onclick="showOneLetter()">SHOW</button>
+                </div>
+
+            </div>
+
+            <div class="main-grid" id="main-grid">
+                <!-- MAIN GRID CELL SAMPLE 
+                <div class="cell">
+                    <div class="cell-top" id="A001">A</div>
+                    <div class="cell-bottom"id="B001">Z</div>
+                </div>-->
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+<script src="script.js"></script>
+
+</html>
