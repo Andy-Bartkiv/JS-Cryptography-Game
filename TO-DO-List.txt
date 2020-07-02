@@ -23,12 +23,15 @@
 	
 8. Back: Hint should not choose correctly guessed letter
 
-5. DONE - - - - - fe:   Game page  -> responsive 
-10.DONE - - - - - fe: FlipBox game menu buttons
-
 3. fe:   Game menu buttons -> nice icons
 4. fe:   Game page color styling
-6. fe:   Update Info Page -> Home button -> icon
 9. fe:   add YOU WIN window and dialog
 9. fe:	 add YOU LOOSE window and dialog
+9. fe: final message window - too early (2 letters are not painted blue)
+
+
+5. DONE - - - - - fe:   Game page  -> responsive -> fonts scaling
 11.fe:	 Game page -> scalable font-size
+
+
+

@@ -83,15 +83,16 @@ nav>header {
 
 #return-bttn {
     text-align: center;
+    line-height: 1;
 }
 
-#return-bttn:hover {
-    background-color: var(--bg-color);
+#return-bttn a {
+    transition: fill 0.3s;
+    fill: #4d4e53;
 }
 
 #return-bttn:hover a {
-    color: var(--prm-color);
-    font-weight: normal;
+    fill: var(--prm-color);
 }
 
 #main-doc {
@@ -135,8 +136,14 @@ footer {
         z-index: 1;
         overflow: hidden;
     }
-    .nav-link{
+    .nav-link {
         color: var(--sec-color);
+    }
+
+    .nav-div:hover a{
+        font-weight: normal;
+        transition: 0.5s;
+        color: var(--prm-color);
     }
 
     #nl-l {
