@@ -1,0 +1,44 @@
+{
+    "city":["Washington", "Bogota", "Caracas", "Havana", "Kingston", "Los Angeles", "Managua", "Medellin", "Mexico City", "Miami", "Nassau", "Panama City", "Rio de Janeiro", "San Juan"],
+    "crimOrg":["Amazon Cartel", "Colombian Cartel", "Haitian Junta", "Jamaican Gang", "Tupamaros", "FLN", "M18", "Shining Way", "Mercenaries", "Dignity Battalion", "Death Squads"],
+    "target":["Air-Base ID cards", "Embassy Visitor Passes", "Summit ID Documents"],
+    "coreMsg":["We have a job for you. I hope your lockpicks are in order. A sample ${targ} is required. Acquire one and report to the paymaster.",
+              "You are required to make a sensitive delivery. Bring a wrist-cuffed briefcase.",
+              "The ${targ} has been acquired. Awaiting further instructions and payment.",
+              "You are to pick up the ${targ} and deliver it to our special operative.",
+              "I represent your employer. Turn the ${targ} over to me. Don't worry about payment - your check is already in the mail.",
+              "Apply your special talents to this item. A perfect duplicate is required. We will make it worth your while."
+            ],
+    "bshtMsg":["None doubt your loyalty.",
+            "Some aspects of the situation remain unclear.",
+            "Our enemies are on the verge of collapse.",
+            "Your organization is noted for these activities and your assistance will be rewarded",
+            "Deviations from this plan are not acceptable.",
+            "Destiny is our ally.",
+            "Our power increases with each passing day."
+            ],
+    "c1Msg":["Our project here in ${city1} proceeds on schedule.",
+            "Our recruiting in ${city1} has been quite successful.",
+            "The struggle in ${city1} advances from triumph to victory.",
+            "Having a wonderful time in ${city1} wish you were here.",
+            "All ${city1} echoes with praise of your success."
+            ],
+    "c2Msg":["We are confident your work in ${city2} will continue on schedule.",
+            "Send us details of your activities in ${city2}.",
+            "How is ${city2} this time of year.",
+            "Take precautions ${city2} is dangerous.",
+            "Send us details of your activities in ${city2}."
+            ],
+    "o1Msg":["${org1} is ready to reward you for your success.",
+            "${org1} may be assisting in this operation.",
+            "${org1} is ready to reward you for your success.",
+            "This operation has the approval of ${org1} high command.",
+            "We of the ${org1} commend your excellent work."
+            ],
+    "o2Msg":["Fellow warriors of the ${org2} now is the time for action.",
+            "We welcome cooperation with the ${org2}.",
+            "Thanks for your assistance ${org2}.",
+            "Your success assures the goodwill of ${org2}.",
+            "We note the heroic actions of the ${org2}."
+            ]
+}

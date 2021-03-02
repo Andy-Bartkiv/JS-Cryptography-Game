@@ -1,3 +1,48 @@
+let data = { // UGLY substitution to FETCH JSON 
+    "city":["Washington", "Bogota", "Caracas", "Havana", "Kingston", "Los Angeles", "Managua", "Medellin", "Mexico City", "Miami", "Nassau", "Panama City", "Rio de Janeiro", "San Juan"],
+    "crimOrg":["Amazon Cartel", "Colombian Cartel", "Haitian Junta", "Jamaican Gang", "Tupamaros", "FLN", "M18", "Shining Way", "Mercenaries", "Dignity Battalion", "Death Squads"],
+    "target":["Air-Base ID cards", "Embassy Visitor Passes", "Summit ID Documents"],
+    "coreMsg":["We have a job for you. I hope your lockpicks are in order. A sample ${targ} is required. Acquire one and report to the paymaster.",
+              "You are required to make a sensitive delivery. Bring a wrist-cuffed briefcase.",
+              "The ${targ} has been acquired. Awaiting further instructions and payment.",
+              "You are to pick up the ${targ} and deliver it to our special operative.",
+              "I represent your employer. Turn the ${targ} over to me. Don't worry about payment - your check is already in the mail.",
+              "Apply your special talents to this item. A perfect duplicate is required. We will make it worth your while."
+            ],
+    "bshtMsg":["None doubt your loyalty.",
+            "Some aspects of the situation remain unclear.",
+            "Our enemies are on the verge of collapse.",
+            "Your organization is noted for these activities and your assistance will be rewarded",
+            "Deviations from this plan are not acceptable.",
+            "Destiny is our ally.",
+            "Our power increases with each passing day."
+            ],
+    "c1Msg":["Our project here in ${city1} proceeds on schedule.",
+            "Our recruiting in ${city1} has been quite successful.",
+            "The struggle in ${city1} advances from triumph to victory.",
+            "Having a wonderful time in ${city1} wish you were here.",
+            "All ${city1} echoes with praise of your success."
+            ],
+    "c2Msg":["We are confident your work in ${city2} will continue on schedule.",
+            "Send us details of your activities in ${city2}.",
+            "How is ${city2} this time of year.",
+            "Take precautions ${city2} is dangerous.",
+            "Send us details of your activities in ${city2}."
+            ],
+    "o1Msg":["${org1} is ready to reward you for your success.",
+            "${org1} may be assisting in this operation.",
+            "${org1} is ready to reward you for your success.",
+            "This operation has the approval of ${org1} high command.",
+            "We of the ${org1} commend your excellent work."
+            ],
+    "o2Msg":["Fellow warriors of the ${org2} now is the time for action.",
+            "We welcome cooperation with the ${org2}.",
+            "Thanks for your assistance ${org2}.",
+            "Your success assures the goodwill of ${org2}.",
+            "We note the heroic actions of the ${org2}."
+            ]
+}
+
 function createMainGrid(msg1, msg2) {
     let abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let c1 = c2 = "_";
@@ -101,7 +146,15 @@ function scrumble(msg) {
 // sleeping function, requires THEN when used
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-  }
+}
+
+function waitingForMessage(msg111) {
+    console.log("waiting " , msg111)
+    if (msg111.length > 0)
+        console.log("We got it = ", msg111);
+    else
+      setTimeout(waitingForMessage, 300); // try again in 300 milliseconds
+}
 
 // GIVE UP mode = showing all letters in original Msg
 function showAllLetters(t=7) {
@@ -178,60 +231,84 @@ function exitToMain() {
     // if (res) 
         window.location.replace("index.html");
 }
-
-
-
-// Creating message to be coded
-const cities = ["Washington", "Bogota", "Caracas", "Havana", "Kingston"];
-const crimOrgs = ["Amazon Cartel", "Colombian Cartel", "Haitian Junta", "Jamaican Gang", "Tupamaros"];
-const targets = ["US Ambassy", "Nuclear Plant"];
-let index = Math.floor(Math.random() * crimOrgs.length);
-let org1 = crimOrgs.splice(index, 1);
-index = Math.floor(Math.random() * cities.length);
-let org2 = crimOrgs.splice(index, 1);
-index = Math.floor(Math.random() * cities.length);
-let city1 = cities.splice(index, 1);
-index = Math.floor(Math.random() * cities.length);
-let city2 = cities.splice(index, 1);
-index = Math.floor(Math.random() * targets.length);
-let targ = targets.splice(index, 1);
+// Picking random element of the array
+function rndArr(arr) {
+	return arr[Math.floor(Math.random() * arr.length)]
+}
+// creating object of Items to fill placeholders = ${} messages
+function createMsgItems(data) {
+	return {
+		targ: rndArr(data.target),
+		city1: rndArr(data.city),
+		city2: rndArr(data.city),
+		org1: rndArr(data.crimOrg),
+		org2: rndArr(data.crimOrg),
+	}
+}
+// replacing placeholders ${} in STR with correct Items from OBJ
+function replaceNames(str, obj) {
+	for (key in obj) {
+		let exp = "${"+key+"}";
+		if (str.indexOf(exp) >= 0)
+			str = str.replace(exp, obj[key]);
+	}
+	return str;
+}
 
 const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-let sourceMsg = `You are instructed to acquire current passwords for the ${targ}. A courier will arrive shortly to pick up this information.`;
-
 const difLvl = localStorage.getItem("Crypto-Game-Level");
 
-if (difLvl <= 5) sourceMsg += " " + `None doubt your loyalty.`;
-if (difLvl <= 4) sourceMsg = `${org1} is ready to reward you for your success.` + " " + sourceMsg;
-if (difLvl <= 3) sourceMsg += " " + `Our project here in ${city1} proceeds on schedule.`;
-if (difLvl <= 2) sourceMsg += " " + `We are confident your work in ${city2} will continue on schedule.`;
-if (difLvl <= 1) sourceMsg += " " + `Fellow warriors of the ${org2} now is the time for action.`;
+// Creating message to be coded
 
-let orgMsg = filterMsg(sourceMsg.toUpperCase(), difLvl);
-// SCRUMBLING ABC-order to get a random encryption Key//
-let scrumbleKey = scrumble(abc);
-let scrMsg = encryptMsg(orgMsg, scrumbleKey);
-createLeftGrid();
-createMainGrid(orgMsg, scrMsg);
-let lgr1 = document.getElementsByClassName("lgr1");
-let lgr2 = document.getElementsByClassName("lgr2");
-let lgr3 = document.getElementsByClassName("lgr3");
-let topCells = document.getElementsByClassName("cell-top");
-let bottomCells = document.getElementsByClassName("cell-bottom");
-let mode = 1; // Game mode: 1=normal flow, 3=animation in progress
-// key used to count hints (each time excludes one letter from this key)
-let hintKey = abc.split("").filter(ch => countSymbols(orgMsg, ch) > 0).join("");
-let idMg = [];
-let char = char2 = "A";
+// fetch('/json/test.json')
+//     .then(response => response.json())
+//     .then(data => {
+        let msgObj = createMsgItems(data);
+        msgBody = rndArr(data.coreMsg);
+        if (difLvl <= 5) msgBody += " " + rndArr(data.bshtMsg);
+        if (difLvl <= 4) msgBody =  rndArr(data.o1Msg) + " " + msgBody;
+        if (difLvl <= 3) msgBody += " " + rndArr(data.c1Msg);
+        if (difLvl <= 2) msgBody += " " + rndArr(data.c2Msg);
+        if (difLvl <= 1) msgBody += " " + rndArr(data.o2Msg);
+        let sourceMsg  = replaceNames(msgBody, msgObj);
 
-const msgNum = "MSG #" + orgMsg[0] + difLvl + "." + orgMsg.length;
-document.getElementById("msg").innerHTML = msgNum;
+        let orgMsg = filterMsg(sourceMsg.toUpperCase(), difLvl);
 
-let score = difLvl * 60 * 5;
-document.getElementById("timer").innerHTML = score;
+        // SCRUMBLING ABC-order to get a random encryption Key//
+        let scrumbleKey = scrumble(abc);
+        let scrMsg = encryptMsg(orgMsg, scrumbleKey);
+        createLeftGrid();
+        createMainGrid(orgMsg, scrMsg);
 
-animateMainGrid(difLvl, 5);
+        let lgr1 = document.getElementsByClassName("lgr1");
+        let lgr2 = document.getElementsByClassName("lgr2");
+        let lgr3 = document.getElementsByClassName("lgr3");
+        let topCells = document.getElementsByClassName("cell-top");
+        let bottomCells = document.getElementsByClassName("cell-bottom");
+        let mode = 1; // Game mode: 1=normal flow, 3=animation in progress
 
+        // key used to count hints (each time excludes one letter from this key)
+        let hintKey = abc.split("").filter(ch => countSymbols(orgMsg, ch) > 0).join("");
+        let idMg = [];
+        let char = char2 = "A";
+        
+        const msgNum = "MSG #" + orgMsg[0] + difLvl + "." + orgMsg.length;
+        document.getElementById("msg").innerHTML = msgNum;
+        
+        let score = difLvl * 60 * 5;
+        document.getElementById("timer").innerHTML = score;
+        
+        animateMainGrid(difLvl, 5);
+
+    // });
+
+// - - -  Menu Buttons
+
+document.getElementById("btn-hint").addEventListener('click', () => showOneLetter());
+
+document.getElementById("btn-exit").addEventListener('click', () => exitToMain());
+document.getElementById("btn-restart").addEventListener('click', () => restartGame());
+document.getElementById("btn-giveup").addEventListener('click', () => showAllLetters());
 
 // - - - KEYBOARD EVENTS - - -------------------------------------------------------------------------
 
@@ -269,7 +346,7 @@ document.addEventListener('keydown', event => {
         }
     }
 
-// getting 1 hint by pressin "1" KEY
+// getting 1 hint by pressing "1" KEY
     if (event.keyCode == 49 && mode !== 3) {
         showOneLetter(difLvl);
     }

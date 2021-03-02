@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> CRYPTOGRAPHY GAME </title>
     <link rel="stylesheet" href="game-styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 
 <body>
@@ -40,20 +41,32 @@
                         </div>
                         
                         <div id="three-btns">
-                            <button title="Exit to Main Menu" onclick="exitToMain()">EXIT</button>
-                            <button title="Generate New Message" onclick="restartGame()">ReST</button>
-                            <button title="Show Decoded Message" onclick="showAllLetters()">GIUP</button>
+                            <div class="menu-icons" id="btn-exit">
+                                <i class="fas fa-home"></i>
+                                <span class="tooltiptext">Exit to Main Menu</span>
+                            </div>
+                            <div class="menu-icons" id="btn-restart">
+                                <i class="fas fa-sun"></i>
+                                <span class="tooltiptext">Generate New Message</span>
+                            </div>
+                            <div class="menu-icons" id="btn-giveup">
+                                <i class="fas fa-clinic-medical"></i>
+                                <span class="tooltiptext">Show Decoded Message</span>
+                            </div>
                         </div>
                     </div>             
                 </div>
 
                 <div class="letter-input">
-                    <input  type="text" id="" maxlength="1" size="1">
-                    <input  type="text" id="" maxlength="1" size="1">
+                    <input  type="text" maxlength="1" size="1">
+                    <input  type="text" maxlength="1" size="1">
                 </div>
 
                 <div class="hint-btn">
-                    <button title="Show Hint" onclick="showOneLetter()">SHOW</button>
+                    <div class="menu-icons" id="btn-hint">
+                        <i class="far fa-lightbulb"></i>
+                        <span class="tooltiptext">Display One Letter</span>
+                    </div>
                 </div>
 
             </div>
