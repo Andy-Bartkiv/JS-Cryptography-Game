@@ -1,297 +1,251 @@
+/* New styles for game window */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 @font-face {
     font-family: telegrama;
     src: url('Assets/telegrama_raw.ttf');
 }
 
 :root {
+    --color-dark-grey: #090909;
+    --color-green: #003900;
+    --color-navy:  #000030;
+    --txt-color: #fafad2;
+    --border-color: #E6DB74;
+
     --bg-color: #032113;
     --prm-color: #21f396;
     --sec-color: #258457;
     --green-color: #A6E22E;    /* #adff2f; */
     --cyan-color: #66D9EF;    /* #87ceeb; */
-    --kh-color: #bdb76b;
-    --border-color: #E6DB74;
-    --blbg-color: #241E4E;
-    --txt-color: #fafad2;
 
+    font-size: 10vmin;
+    font-family: telegrama, monospace, sans-serif;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: telegrama, consolas, sans-serif;
+/*To PREVENT DIV-TEXT SELECTION by Mouse at the Page*/
+div {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 
 body {
-    font-size: 1.2em;
-    margin: 0;
     background: url('Assets/BG.jpg');
-    background-size: auto;
+    color: var(--txt-color);
 }
 
 .container {
-    display: grid;
-    grid-template-rows: 70px auto; 
-    grid-template-areas:
-        'left-col top-row'
-        'left-col main-ar';
-    background-color: #000;
-    color: #fafad2;
-    border: 0.5px #bdb76b solid;
-    max-width: 175vh;
-    min-width: 90vw;
-    min-height: 100vh;
     margin: auto;
+    /* min-width: 100vh; */
+    min-width: 100vmin;
+    max-width: 150vmin;
+    min-height: 100vh;
+    font-size: 0.315rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 0.05rem;
+    padding: 0 0.02rem;
 }
-
-.container div{
-     padding: 0 0.5px;
-}
-
-/* --------------------------------------------- STYLING LEFT CONTAINER  */
+/* ---------------------------- LEFT GRID-container -------------- */
 .left-container {
-    grid-area: left-col;
+    font-size: 3.15vh;
+    grid-row: 1 / 3;
+    border: 1px solid var(--border-color);
+    background-color: var(--color-navy); 
+    display: grid;
+    padding: 0 0.05rem;
+    gap: 0 0.1rem;
+    grid-template-columns: 1fr 1fr 2fr;
+}
+.lgr1 {color: skyblue;}
+.lgr2 {color: greenyellow;}
+.lgr3 {text-align: end;}
+/* --------------------------- MENU GRID-container ---------- */
+.menu-container {
+    border: 1px solid var(--border-color); 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+.menu-container > div {
+    background-color: #00390099;
+    text-align: center;
+    padding: 0.05rem;
+}
+#msg, #cw, #timer {font-size: 0.9em;}
+#cw {white-space: nowrap;}
+/* --------------------- MENU -> Flip Box menu icons -------- */
+div.flip-box {
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    padding: 0;
+    cursor: pointer;
+}
+.flip-box-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.75s;
+    transform-style: preserve-3d;
+}
+.flip-box:hover .flip-box-inner {
+    transform: rotateX(180deg);
+}
+.flip-box-front, .flip-box-back {
+    background-color: #00390099;
+    position: absolute;
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
-    background-color: #003;
-    border: 0.5px #bdb76b solid;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
+    -moz-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.flip-box-back {
+    transform: rotateX(180deg);
+}
+/* - - - END of - - - MENU -> Flip Box - - - */
+.menu-icons {
+    position: relative;
+}
+.menu-icons:hover {
+    color: var(--cyan-color);
+    cursor: pointer;
+}
+    /* Tooltip text */
+.menu-icons .tooltiptext {
+    white-space: nowrap;
+    font-size: 0.65em;
+    font-weight: bolder;
+    font-family: monospace;
+    visibility: hidden;
+    width: 1.2rem;
+    background-color: #003900dd;
+    color: var(--cyan-color);
+    border: 0.025rem solid var(--cyan-color);
+    text-align: center;
+    padding: 0.05rem;
+    border-radius: 0.1rem;
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    left: 50%;
+    margin-left: -0.6rem;
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.75s;
+}
+/* Tooltip arrow */
+.menu-icons .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 105%;
+    left: 50%;
+    margin-left: -0.1rem;
+    border-width: 0.1rem;
+    border-style: solid;
+    border-color:var(--cyan-color) transparent transparent transparent;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+.menu-icons:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+#btn-hint {
+    font-size: 0.75em;
+    color: var(--cyan-color);
+}
+.letter-input {
+    display: flex;
     justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
-.lg-row {
+/* --------------------------- CENTRAL FLEX-container */
+.central-container {
+    position: relative;
+    background-color: var(--color-dark-grey);
+    border: 1px solid var(--border-color); 
+    padding: 0.1rem;
     display: flex;
-}
-
-.lgr1 {
-    color: skyblue;
-    margin:0 3px;
-}
-
-.lgr2 {
-    color: greenyellow;
-    margin:0 3px;
-}
-
-.lgr3 {
-    width: 1.3em;
-    text-align: end;
-    margin:0 5px;
-}
-
-/* ------------------------------ STYLING MAIN CONTAINER  */
-.main-container {
-    display: flex;
-    flex-direction: column;
-    border: 0.5px darkkhaki solid;
-}
-
-/* ----------------------------- STYLING TOP MENU          */
-
-.main-top {
-    grid-area: top-row;
-    max-height: 70px;
-        background-color: #040;
-        font-weight: 100;
-        padding: 10px;
-        border: 0.5px solid var(--border-color);
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 35px 35px;
-        grid-template-areas:
-            "a1 a2 a3"
-            "b1 b2 b3";
-        justify-items: center;
-    }
-
-    .main-top > div {
-        padding: 5px;
-    }
-    #msg {
-        grid-area: a1;
-        align-self: center;
-        text-align: center;
-        white-space: nowrap;
-    }
-    #cw {
-        grid-area: a2;
-        align-self: center;
-        text-align: center;
-    }
-    #timer {
-        grid-area: a3;
-        align-self: center;
-        text-align: center;
-    }
-
-    .menu-icons {
-        position: relative;
-    }
-
-    .menu-icons:hover {
-        color: #66D9EF;
-        cursor: pointer;
-    }
-
-        /* Tooltip text */
-    .menu-icons .tooltiptext {
-        font-size: 8px;
-        visibility: hidden;
-        width: 120px;
-        background-color: #555;
-        color: #fff;
-        text-align: center;
-        padding: 5px 0;
-        border-radius: 5px;
-    
-        /* Position the tooltip text */
-        position: absolute;
-        z-index: 1;
-        bottom: 125%;
-        left: 50%;
-        margin-left: -60px;
-    
-        /* Fade in tooltip */
-        opacity: 0;
-        transition: opacity 0.75s;
-    }
-    
-    /* Tooltip arrow */
-    .menu-icons .tooltiptext::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #555 transparent transparent transparent;
-    }
-  
-    /* Show the tooltip text when you mouse over the tooltip container */
-    .menu-icons:hover .tooltiptext {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .menu-btns {
-        width: 100%;
-        grid-area: b1;
-        perspective: 1000px;
-    }
-
-    .menu-btns-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        /* display: flex;
-        align-items: center;
-        justify-content: center; */
-        transition: transform 0.5s;
-        transform-style: preserve-3d;
-    }
-
-    .menu-btns:hover .menu-btns-inner {
-        transform: rotateX(180deg);
-    }
-
-    #menu-icon, #three-btns {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-around;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-    }
-
-    svg.icon {
-        width: 100%;
-        height: auto;
-        fill: #66D9EF
-    }
-
-    #three-btns {
-        transform: rotateX(180deg);
-    }
-    #three-btns > button {
-        width: 50%;
-    }
-
-    .letter-input {
-        grid-area: b2;
-        display: none;
-    }
-
-    .hint-btn {
-        width: 100%;
-        grid-area: b3;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .hint-btn > button {
-        width: 100%;
-        }
-
-    /* .menu-btns:hover #three-btns {
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-around;
-    }
-    .menu-btns:hover #menu-icon {
-        display: flex;
-        display: none;
-    } */
-
-/* ------------------------------ STYLING MAIN GRID */
-
-.main-grid {
-    grid-area: main-ar;
-    display: flex;
-    margin: 10px;
-    padding: 10px;
+    align-content: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
-    align-content: flex-start;
+    overflow: hidden;
+    /* min-width: 130vh; */
+    /* font-size: calc((2vw + 2vh + 1vmin) / 2); */
+    /* font-size: 2vw; */
+    /* max-height: 90vh; */
 }
 
 .cell {
-    margin: 2px 0px;
+    margin: 2px 1px;
 }
-
 .cell-top {
     color: greenyellow;
 }
-
 .cell-bottom {
     color: var(--cyan-color);
 }
 
-/* For mobile screens */
-
-@media (max-width: 768px) {
-    body {
-        font-size: 1.1em;
-    }
-
-    .container {
-    display: grid;
-    grid-template-areas:
-        'top-row top-row'
-        'left-col main-ar';
-    }
-    .main-top {
-        font-size: 2.5vw;
-    }
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: absolute; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+.modal-content {
+    position: inherit;
+    background-color: var(--bg-color);
+    color: var(--txt-color);
+    font-family: monospace, arial;
+    line-height: 1.6;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0.25rem;
+    border: 1px solid var(--border-color);
+    width: max-content;
+    width: fit-content;
+    max-width: 80%;
 }
 
+
+/* For mobile screens */
+
 @media (max-width: 600px) {
-    body {
-        font-size: 1em;
+    .left-container {
+        grid-row: 2 / 3;
+        font-size: 2.75vh;
     }
-    .container {
-        min-width: 375px;
+    .menu-container {
+        grid-column: 1 / 3;
     }
 }

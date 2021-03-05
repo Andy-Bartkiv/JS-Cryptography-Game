@@ -1,7 +1,5 @@
 31.05.2020
 
-!!!!!!! find git instructions from Travesty 
-
 !!!!!!! hintArray 
 	0 - top letter
 	1 - top letter
@@ -10,8 +8,6 @@
 	4 - bottom half
 	5 - bottom half 
 
-
-2. Back: upload Msgs from JSON
 12.Back: Game page -> Impove scrumble method at higher difficulty
 	5 - top frq letter split 
 
@@ -23,15 +19,9 @@
 	
 8. Back: Hint should not choose correctly guessed letter
 
-3. fe:   Game menu buttons -> nice icons
-4. fe:   Game page color styling
-9. fe:   add YOU WIN window and dialog
-9. fe:	 add YOU LOOSE window and dialog
-9. fe: final message window - too early (2 letters are not painted blue)
-
-
-5. DONE - - - - - fe:   Game page  -> responsive -> fonts scaling
 11.fe:	 Game page -> scalable font-size
+
+2. Back: upload Msgs from JSON
 
 
 

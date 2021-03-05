@@ -1,87 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> CRYPTOGRAPHY GAME </title>
+    <title>CRYPTO TERMINAL</title>
+    <link rel="icon" type="image/png" href="Assets/icon.png">
     <link rel="stylesheet" href="game-styles.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
-
 <body>
     <div class="container">
 
         <div class="left-container" id='left-container'>
-            <!-- LEFT CONTAINER CELL SAMPLE 
-            <div class="lg-row">
-                <div class="lgr1" id="lg-a1">Z</div>
-                <div class="lgr2" id="lg-a2">A</div>
-                <div class="lgr3" id="lg-a3"></div>
-            </div>
-            -->
+            <!-- LEFT CONTAINER CELL SAMPLE  -->
+            <!-- <div class="lgr1" id="lg-a1">Z</div>
+                 <div class="lgr2" id="lg-a2">A</div>
+                 <div class="lgr3" id="lg-a3">00</div> -->
         </div>
-
-        <!-- <div class="main-container"> -->
-
-            <div class="main-top">
-                <div id="cw">CRYPTO TERMINAL</div>
-                <div id="msg">MSG #9.X000</div>
-                <div id="timer">0000</div>
-
-                
-                <div class="menu-btns">
-                    <div class="menu-btns-inner">
-                        <div id="menu-icon">
-                            <svg focusable="false" viewBox="0 0 128 128" width="35" height="35" class="icon">
-                                <path
-                                    d="m2e1 95a9 9 0 0 1 -9 9 9 9 0 0 1 -9 -9 9 9 0 0 1 9 -9 9 9 0 0 1 9 9zm0-3e1a9 9 0 0 1 -9 9 9 9 0 0 1 -9 -9 9 9 0 0 1 9 -9 9 9 0 0 1 9 9zm0-3e1a9 9 0 0 1 -9 9 9 9 0 0 1 -9 -9 9 9 0 0 1 9 -9 9 9 0 0 1 9 9zm14 55h68v1e1h-68zm0-3e1h68v1e1h-68zm0-3e1h68v1e1h-68z">
-                                </path>
-                            </svg>
+        
+        <div class="menu-container">
+            <div id="msg">MSG #X5.555</div>
+            <div id="cw">CRYPTO TERMINAL</div>
+            <div id="timer">0000</div>
+            
+            <div class="flip-box">
+                <div class="flip-box-inner">
+                    <div class="flip-box-front">
+                            <i class="fas fa-bars"></i>
+                    </div>
+                    <div class="flip-box-back">
+                        <div class="menu-icons" id="btn-exit">
+                            <i class="fas fa-power-off"></i>
+                            <span class="tooltiptext">Power OFF</span>
                         </div>
-                        
-                        <div id="three-btns">
-                            <div class="menu-icons" id="btn-exit">
-                                <i class="fas fa-home"></i>
-                                <span class="tooltiptext">Exit to Main Menu</span>
-                            </div>
-                            <div class="menu-icons" id="btn-restart">
-                                <i class="fas fa-sun"></i>
-                                <span class="tooltiptext">Generate New Message</span>
-                            </div>
-                            <div class="menu-icons" id="btn-giveup">
-                                <i class="fas fa-clinic-medical"></i>
-                                <span class="tooltiptext">Show Decoded Message</span>
-                            </div>
+                        <div class="menu-icons" id="btn-restart">
+                            <i class="far fa-smile"></i>
+                            <span class="tooltiptext">ReStart</span>
                         </div>
-                    </div>             
-                </div>
-
-                <div class="letter-input">
-                    <input  type="text" maxlength="1" size="1">
-                    <input  type="text" maxlength="1" size="1">
-                </div>
-
-                <div class="hint-btn">
-                    <div class="menu-icons" id="btn-hint">
-                        <i class="far fa-lightbulb"></i>
-                        <span class="tooltiptext">Display One Letter</span>
+                        <div class="menu-icons" id="btn-giveup">
+                            <i class="far fa-flag"></i>
+                            <span class="tooltiptext">Give Up</span>
+                        </div>
                     </div>
                 </div>
-
             </div>
 
-            <div class="main-grid" id="main-grid">
-                <!-- MAIN GRID CELL SAMPLE 
-                <div class="cell">
-                    <div class="cell-top" id="A001">A</div>
-                    <div class="cell-bottom"id="B001">Z</div>
-                </div>-->
+            <!-- <div>A=Z</div> -->
+            <div class="letter-input">
+                <div>A</div>
+                <!-- <input  type="text" maxlength="1" size="1" style="width:0.23rem"> -->
+                <span class="fas fa-equals"></span>
+                <!-- <input  type="text" maxlength="1" size="1" style="width:0.23rem"> -->
+                <div>Z</div>
             </div>
 
-        <!-- </div> -->
+            <div class="flip-box">
+                <div class="flip-box-inner">
+                    <div class="flip-box-front">
+                        <i class="far fa-lightbulb"></i>
+                    </div>
+                    <div class="flip-box-back">
+                        <div id="btn-hint">Show One Letter</div>
+                    </div>
+                </div>
+            </div>
 
-    </div>
+        </div>   <!-- class="menu-container" -->
+
+        <div class="central-container" id="main-grid">
+            <!-- MAIN GRID CELL SAMPLE  -->
+            <!-- <div class="cell">
+                <div class="cell-top" id="A001">A</div>
+                <div class="cell-bottom"id="B001">Z</div>
+            </div> -->
+
+        <!-- The Modal -->
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <!-- <span class="close">&times;</span> -->
+                    <p id="modal-text">txt to show</p>
+                </div>
+            </div>
+            <div></div>
+        </div> <!-- class="central-container" -->
+        
+    </div>  <!-- class ="container" -->
 </body>
 
 <script src="script.js"></script>

@@ -12,7 +12,7 @@ let data = { // UGLY substitution to FETCH JSON
     "bshtMsg":["None doubt your loyalty.",
             "Some aspects of the situation remain unclear.",
             "Our enemies are on the verge of collapse.",
-            "Your organization is noted for these activities and your assistance will be rewarded",
+            "Your organization is noted for these activities and your assistance will be rewarded.",
             "Deviations from this plan are not acceptable.",
             "Destiny is our ally.",
             "Our power increases with each passing day."
@@ -44,7 +44,6 @@ let data = { // UGLY substitution to FETCH JSON
 }
 
 function createMainGrid(msg1, msg2) {
-    let abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let c1 = c2 = "_";
     for (let i in msg1) {
         if (msg2[i] == ' ') c2 = "&nbsp";
@@ -63,15 +62,13 @@ function createMainGrid(msg1, msg2) {
 }
 
 function createLeftGrid() {
-    let abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     for (let i in abc) {
-        // Creating DIV element
-        let newDiv = document.createElement("div");
-        newDiv.className = "lg-row";
-        newDiv.innerHTML = "<div class='lgr1'>" + "_" + "</div>"
-        + "<div class='lgr2'>" + abc[i] + "</div>"
-        + "<div class='lgr3'>" + 0 + "</div>";
-        document.getElementById("left-container").appendChild(newDiv);
+        for (let j=1; j<4; j++) { // filling left grid by rows
+            let newDiv = document.createElement("div");
+            newDiv.className = `lgr${j}`;
+            newDiv.innerHTML = {1:"_", 2: abc[i], 3: "0"}[j]
+            document.getElementById("left-container").appendChild(newDiv);
+        }
     }
 }
 
@@ -79,7 +76,8 @@ function createLeftGrid() {
 function animateMainGrid(lvl, t=25) {
     mode = 3;
     [...topCells].forEach((element, i) => {
-        sleep(i*t).then(() => { 
+        sleep(i*t).then(() => {
+            bottomCells[i].style.color = null; 
             element.style.color = null;
             if (abc.indexOf(element.innerHTML) >= 0)
                 lgr3[abc.indexOf(element.innerHTML)].innerHTML = 
@@ -89,12 +87,12 @@ function animateMainGrid(lvl, t=25) {
     sleep(t*orgMsg.length).then(() => {
         [...bottomCells].forEach(element => element.style.color = null);
         mode = 1;
-        if (lvl <= 1) showOneLetter(0,0)
         if (lvl <= 0)
-            for (let i=0; i<4; i++) {
-                mode = 1;
-                showOneLetter(0,0)
+        for (let i=0; i<4; i++) {
+            mode = 1;
+            showOneLetter(0,i*2.5)
         }
+        if (lvl == 1) showOneLetter(0,5)
         setInterval(function(){ 
             if (score >= 0 && mode == 1) score -= 1;
             if (score < 0) score = 0;
@@ -106,7 +104,6 @@ function animateMainGrid(lvl, t=25) {
 // Encrypting filtered Msg according to the key
 function encryptMsg(msg, key) {
     let res = '';
-    const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     for (let c of msg)
         res += (abc.indexOf(String(c)) < 0) ? c : key[abc.indexOf(String(c))];
     return res;
@@ -120,7 +117,7 @@ function filterMsg(msg, lvl) {
     return res;
 }
 
-// counting appearence of SYM in the MSG
+// counting appearance of SYM in the MSG
 function countSymbols(msg, sym) {
     let res = 0;
     for (let i in msg) res += (msg[i] === sym) ? 1 : 0;
@@ -148,44 +145,38 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function waitingForMessage(msg111) {
-    console.log("waiting " , msg111)
-    if (msg111.length > 0)
-        console.log("We got it = ", msg111);
-    else
-      setTimeout(waitingForMessage, 300); // try again in 300 milliseconds
-}
-
 // GIVE UP mode = showing all letters in original Msg
 function showAllLetters(t=7) {
-    mode = 3; // Game ended by Give-UP
-    score = 0;
-    // displaying letters from original Msg and fading green letters
-    [...bottomCells].forEach((element, i) => {
-        sleep(i*t).then(() => { 
-            element.style.backgroundColor = null;
-            element.style.color = null;
-            char = (orgMsg[i] == ' ') ? "&nbsp" : orgMsg[i]
-            element.innerHTML = orgMsg[i];
-            topCells[i].style.color = '#070';
+    if (mode !== 3) {
+        mode = 3; // Game ended by Give-UP
+        score = 0;
+        // displaying letters from original Msg and fading green letters
+        [...bottomCells].forEach((element, i) => {
+            sleep(i*t).then(() => { 
+                element.style.backgroundColor = null;
+                element.style.color = null;
+                char = (orgMsg[i] == ' ') ? "&nbsp" : orgMsg[i]
+                element.innerHTML = orgMsg[i];
+                topCells[i].style.color = colorDarkGreen;
+            });
         });
-    });
-    // Fading vertical green letters 
-    for (let i in abc) lgr2[i].style.color = '#070';
-    // 
-    sleep(topCells.length*t).then (() => {
-        document.getElementById("msg").style.color = "#ADFF2F";
-        document.getElementsByClassName("main-top")[0].style.backgroundColor = "#115"
-        document.getElementById("msg").innerHTML = "MSG DECODED";
-        // displaying original Msg in separate window.
-        alert(sourceMsg);
-    });
-    // displaying vertical blue letters
-    for (let i in abc) lgr1[abc.indexOf(scrumbleKey[i])].innerHTML = abc[i];
-
+        // Fading vertical green letters 
+        for (let i in abc) lgr2[i].style.color = colorDarkGreen;
+        // 
+        sleep(topCells.length*t).then (() => {
+            document.getElementById("msg").style.color = colorGreenYellow;
+            document.getElementById("timer").style.color = colorGreenYellow;
+            document.getElementsByClassName("letter-input")[0].style.color = "transparent";
+            document.getElementById("msg").innerHTML = "MSG DECODED";
+            // show original Msg in separate window.
+            showModal(sourceMsg);
+        });
+        // displaying vertical blue letters
+        for (let i in abc) lgr1[abc.indexOf(scrumbleKey[i])].innerHTML = abc[i];
+    }
 }
 
-// HINT mode = only one leter is showed after iterating through all blue letters
+// HINT mode = only one letter is showed after iterating through all blue letters
 function showOneLetter(lvl=difLvl, t=7) {
     if (mode !== 3) {
         mode = 3;
@@ -193,7 +184,7 @@ function showOneLetter(lvl=difLvl, t=7) {
         lgr1[abc.indexOf(char2)].style.color = null;
         [...bottomCells].forEach((element, i) => {
             sleep(i*t).then(() => { 
-                element.style.backgroundColor = "#87ceeb";
+                element.style.backgroundColor = colorSkyBlue;
                 element.style.color = null;
             });
             sleep(t+i*t).then(() => { element.style.backgroundColor = null });
@@ -221,21 +212,22 @@ function showOneLetter(lvl=difLvl, t=7) {
 }
 
 function restartGame() {
-    // let res = confirm("Are you sure you want to ReSTART the game?\nAll your progress will be lost!");
-    // if (res) 
-        document.location.reload(true);
+    document.location.reload(true);
 }
-
 function exitToMain() {
-    // let res = confirm("Are you sure you want to EXIT the game?\nAll your progress will be lost!");
-    // if (res) 
         window.location.replace("index.html");
 }
 // Picking random element of the array
-function rndArr(arr) {
-	return arr[Math.floor(Math.random() * arr.length)]
+ function rndArr(arr) {
+ 	return arr[Math.floor(Math.random() * arr.length)]
 }
-// creating object of Items to fill placeholders = ${} messages
+// Picking longest element of the array (DVP Function)
+function longestStr(arr) {
+    let res = 0;
+	arr.forEach((el, ind) => {if (el.length > arr[res].length) res = ind})
+    return arr[res];
+}
+// create object of Items to fill placeholders = ${} to form message
 function createMsgItems(data) {
 	return {
 		targ: rndArr(data.target),
@@ -253,10 +245,34 @@ function replaceNames(str, obj) {
 			str = str.replace(exp, obj[key]);
 	}
 	return str;
+} 
+// display decoded msg new line each sentence
+function splitByDot(str) {
+    let res = str.split(".");
+    str = "";
+    res.forEach(p => str += p + ".<br>");
+    return str.slice(0,-5);
+} 
+// display decoded msg at the end
+function showModal(str) {
+    let modal = document.getElementById("myModal");
+    let textModal = document.getElementById("modal-text");
+    textModal.innerHTML= splitByDot(str);
+    modal.style.display = "block";
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 }
 
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+const colorSkyBlue = "#87ceeb";
+const colorGreenYellow = "#ADFF2F"
+const colorDarkGreen = "#070"
 const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const difLvl = localStorage.getItem("Crypto-Game-Level");
+const difLvl = (localStorage.getItem("Crypto-Game-Level")) ? localStorage.getItem("Crypto-Game-Level") : 1;
 
 // Creating message to be coded
 
@@ -298,9 +314,9 @@ const difLvl = localStorage.getItem("Crypto-Game-Level");
         let score = difLvl * 60 * 5;
         document.getElementById("timer").innerHTML = score;
         
-        animateMainGrid(difLvl, 5);
+        animateMainGrid(difLvl, 15);
 
-    // });
+    // });  //------------ JSON processing closing brackets
 
 // - - -  Menu Buttons
 
@@ -328,10 +344,10 @@ document.addEventListener('keydown', event => {
             }
             idMg.forEach(val => {
                 document.getElementById(val).style.backgroundColor = "#252";
-                document.getElementById(val).style.color = "#ADFF2F";
+                document.getElementById(val).style.color = colorGreenYellow;
             });
             lgr1[abc.indexOf(char)].style.backgroundColor = "#229";
-            lgr1[abc.indexOf(char)].style.color = "#ADFF2F";
+            lgr1[abc.indexOf(char)].style.color = colorGreenYellow;
         }
         else if (mode == 0) { // substitution phase
             mode = 1;
@@ -344,21 +360,6 @@ document.addEventListener('keydown', event => {
             lgr1[abc.indexOf(char2)].style.backgroundColor = null;
             lgr1[abc.indexOf(char2)].style.color = null;
         }
-    }
-
-// getting 1 hint by pressing "1" KEY
-    if (event.keyCode == 49 && mode !== 3) {
-        showOneLetter(difLvl);
-    }
-// KEY = "2" - END of the Game - testing
-    if (event.keyCode == 50) { 
-        showAllLetters();
-    }
-    if (event.keyCode == 51) { // KEY = 3
-        alert("1 = hint \n2 = solve \n3 = help \n4 = exit");
-    }
-    if (event.keyCode == 52) { // KEY = 4
-        exitToMain();
     }
 
 }); // END OF KEYBOARD EVENT LISTENER --------------------------------------
