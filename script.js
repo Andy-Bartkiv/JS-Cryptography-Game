@@ -96,9 +96,20 @@ function animateMainGrid(lvl, t=25) {
         setInterval(function(){ 
             if (score >= 0 && mode == 1) score -= 1;
             if (score < 0) score = 0;
-            document.getElementById("timer").innerHTML = score;
+            timerDiv.innerHTML = score;
         }, 1000);
     });
+}
+
+function generateMsg(data, difLvl) {
+    let msgObj = createMsgItems(data);
+    msgBody = rndArr(data.coreMsg);
+    if (difLvl <= 5) msgBody += " " + rndArr(data.bshtMsg);
+    if (difLvl <= 4) msgBody =  rndArr(data.o1Msg) + " " + msgBody;
+    if (difLvl <= 3) msgBody += " " + rndArr(data.c1Msg);
+    if (difLvl <= 2) msgBody += " " + rndArr(data.c2Msg);
+    if (difLvl <= 1) msgBody += " " + rndArr(data.o2Msg);
+    return replaceNames(msgBody, msgObj);
 }
 
 // Encrypting filtered Msg according to the key
@@ -164,10 +175,10 @@ function showAllLetters(t=7) {
         for (let i in abc) lgr2[i].style.color = colorDarkGreen;
         // 
         sleep(topCells.length*t).then (() => {
-            document.getElementById("msg").style.color = colorGreenYellow;
-            document.getElementById("timer").style.color = colorGreenYellow;
+            msgDiv.style.color = colorGreenYellow;
+            timerDiv.style.color = colorGreenYellow;
             document.getElementsByClassName("letter-input")[0].style.color = "transparent";
-            document.getElementById("msg").innerHTML = "MSG DECODED";
+            msgDiv.innerHTML = "MSG DECODED";
             // show original Msg in separate window.
             showModal(sourceMsg);
         });
@@ -180,6 +191,7 @@ function showAllLetters(t=7) {
 function showOneLetter(lvl=difLvl, t=7) {
     if (mode !== 3) {
         mode = 3;
+        timerDiv.setAttribute('style', 'color: #66D9EF')
         lgr1[abc.indexOf(char2)].style.backgroundColor = null;
         lgr1[abc.indexOf(char2)].style.color = null;
         [...bottomCells].forEach((element, i) => {
@@ -201,12 +213,14 @@ function showOneLetter(lvl=difLvl, t=7) {
                 if (orgMsg[i] == char) {
                     document.getElementById("B" + i).innerHTML = char;
                     document.getElementById("B" + i).style.backgroundColor = null;
-                    document.getElementById("B" + i).style.color = null;
+                    document.getElementById("B" + i).removeAttribute('style');
                 }
             }
             mode = 1;
             score -= lvl*15; 
             score = (score < 0) ? 0 : score;
+            timerDiv.removeAttribute('style');
+            timerDiv.innerHTML = score;
         });
     }
 }
@@ -215,7 +229,9 @@ function restartGame() {
     document.location.reload(true);
 }
 function exitToMain() {
+    sleep(500).then(() => {
         window.location.replace("index.html");
+    });
 }
 // Picking random element of the array
  function rndArr(arr) {
@@ -256,9 +272,8 @@ function splitByDot(str) {
 // display decoded msg at the end
 function showModal(str) {
     let modal = document.getElementById("myModal");
-    let textModal = document.getElementById("modal-text");
-    textModal.innerHTML= splitByDot(str);
     modal.style.display = "block";
+    document.getElementById("modal-text").innerHTML= splitByDot(str);
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
@@ -279,14 +294,10 @@ const difLvl = (localStorage.getItem("Crypto-Game-Level")) ? localStorage.getIte
 // fetch('/json/test.json')
 //     .then(response => response.json())
 //     .then(data => {
-        let msgObj = createMsgItems(data);
-        msgBody = rndArr(data.coreMsg);
-        if (difLvl <= 5) msgBody += " " + rndArr(data.bshtMsg);
-        if (difLvl <= 4) msgBody =  rndArr(data.o1Msg) + " " + msgBody;
-        if (difLvl <= 3) msgBody += " " + rndArr(data.c1Msg);
-        if (difLvl <= 2) msgBody += " " + rndArr(data.c2Msg);
-        if (difLvl <= 1) msgBody += " " + rndArr(data.o2Msg);
-        let sourceMsg  = replaceNames(msgBody, msgObj);
+
+        let sourceMsg  = generateMsg(data, difLvl);
+
+        // sourceMsg = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, itaque? Eos deleniti quisquam, odio cum quidem reiciendis velit incidunt dolorem cupiditate laborum tempora nisi pariatur sapiente necessitatibus? Reprehenderit numquam eveniet harum, consequatur ab totam assumenda. Cupiditate repellendus, voluptates exercitationem nostrum magni inventore dolorem sed eveniet recusandae consequuntur excepturi libero nihil officiis facere eos beatae cumque culpa corporis harum ipsum. Illo praesentium quae libero eum aliquam quis corporis commodi sequi."
 
         let orgMsg = filterMsg(sourceMsg.toUpperCase(), difLvl);
 
@@ -296,11 +307,13 @@ const difLvl = (localStorage.getItem("Crypto-Game-Level")) ? localStorage.getIte
         createLeftGrid();
         createMainGrid(orgMsg, scrMsg);
 
-        let lgr1 = document.getElementsByClassName("lgr1");
-        let lgr2 = document.getElementsByClassName("lgr2");
-        let lgr3 = document.getElementsByClassName("lgr3");
-        let topCells = document.getElementsByClassName("cell-top");
-        let bottomCells = document.getElementsByClassName("cell-bottom");
+        const lgr1 = document.getElementsByClassName("lgr1");
+        const lgr2 = document.getElementsByClassName("lgr2");
+        const lgr3 = document.getElementsByClassName("lgr3");
+        const topCells = document.getElementsByClassName("cell-top");
+        const bottomCells = document.getElementsByClassName("cell-bottom");
+        const timerDiv = document.getElementById("timer");
+        const msgDiv = document.getElementById("msg");
         let mode = 1; // Game mode: 1=normal flow, 3=animation in progress
 
         // key used to count hints (each time excludes one letter from this key)
@@ -309,10 +322,10 @@ const difLvl = (localStorage.getItem("Crypto-Game-Level")) ? localStorage.getIte
         let char = char2 = "A";
         
         const msgNum = "MSG #" + orgMsg[0] + difLvl + "." + orgMsg.length;
-        document.getElementById("msg").innerHTML = msgNum;
+        msgDiv.innerHTML = msgNum;
         
         let score = difLvl * 60 * 5;
-        document.getElementById("timer").innerHTML = score;
+        timerDiv.innerHTML = score;
         
         animateMainGrid(difLvl, 15);
 
@@ -327,7 +340,6 @@ document.getElementById("btn-restart").addEventListener('click', () => restartGa
 document.getElementById("btn-giveup").addEventListener('click', () => showAllLetters());
 
 // - - - KEYBOARD EVENTS - - -------------------------------------------------------------------------
-
 document.addEventListener('keydown', event => {
 
     char = String.fromCharCode(event.keyCode);

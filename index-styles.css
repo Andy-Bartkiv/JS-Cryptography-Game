@@ -148,7 +148,7 @@ body {
     cursor: context-menu;
 }
 
-footer {
+.footer-text {
     font-size: 1rem;
     position: fixed;
     left: 50%;
@@ -161,8 +161,9 @@ footer {
     background: rgba(3,33,19,0.55);
     color: var(--sec-color);
     transition: 0.25s;
+    cursor: pointer;
+    text-decoration: none;
 }
-
-footer:hover {
+.footer-text:hover {
     color: var(--prm-color);
 }
