@@ -44,7 +44,6 @@ body {
 
 .container {
     margin: auto;
-    /* min-width: 100vh; */
     min-width: 100vmin;
     max-width: 150vmin;
     min-height: 100vh;
@@ -54,7 +53,43 @@ body {
     grid-template-rows: auto 1fr;
     gap: 0.05rem;
     padding: 0 0.02rem;
+    position: relative;  /* For Turn-off animation  */
 }
+.container:after {
+    width: 100%;
+    height: 100%;
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: var(--txt-color);
+    opacity: 0;
+    left: 0;
+    top: 0;
+}
+.tv._off .container {
+    -webkit-animation: shutdown 500ms linear;
+    animation: shutdown 500ms linear;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+} 
+.tv._off .container:after {
+    -webkit-animation: shutdown-opa 500ms linear;
+    animation: shutdown-opa 500ms linear;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes shutdown {  
+    0% { -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1);}
+    20% { -webkit-transform: scale3d(1, 1.6, 1); transform: scale3d(1, 1.6, 1);}
+    50% { -webkit-transform: scale3d(1, 0.005, 1); transform: scale3d(1, 0.005, 1);}
+    100% { -webkit-transform: scale3d(0, 0, 1); transform: scale3d(0, 0, 1);}
+}
+@keyframes shutdown-opa {  
+    0% { opacity: 0;}
+    50% { opacity: 1;}
+    100% { opacity: 1;}
+}
+
 /* ---------------------------- LEFT GRID-container -------------- */
 .left-container {
     font-size: 3.15vh;
@@ -256,97 +291,3 @@ div.flip-box {
         font-size: 1.2em;
     }
 }
-
-
-.screen-content {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    -webkit-background-size: cover;
-    background-size: cover;
-    background-position: center center;
-  }
-  
-  .screen-content:after {
-    width: 100%;
-    height: 100%;
-    content: "";
-    position: absolute;
-    background: white;
-    opacity: 0;
-    left: 0;
-    top: 0;
-  }
-
-.tv._off .screen-content {
-    -webkit-animation: shutdown 400ms linear;
-    animation: shutdown 400ms linear;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-  }
-  
-  .tv._off .screen-content:after {
-    -webkit-animation: shutdown-opa 400ms linear;
-    animation: shutdown-opa 400ms linear;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-  }
-    
-   @-webkit-keyframes 
-  shutdown {  0% {
-   -webkit-transform: scale3d(1, 1, 1);
-   transform: scale3d(1, 1, 1);
-  }
-   20% {
-   -webkit-transform: scale3d(1, 1.6, 1);
-   transform: scale3d(1, 1.6, 1);
-  }
-   50% {
-   -webkit-transform: scale3d(1, 0.005, 1);
-   transform: scale3d(1, 0.005, 1);
-  }
-   100% {
-   -webkit-transform: scale3d(0, 0, 1);
-   transform: scale3d(0, 0, 1);
-  }
-  }
-   @keyframes 
-  shutdown {  0% {
-   -webkit-transform: scale3d(1, 1, 1);
-   transform: scale3d(1, 1, 1);
-  }
-   20% {
-   -webkit-transform: scale3d(1, 1.6, 1);
-   transform: scale3d(1, 1.6, 1);
-  }
-   50% {
-   -webkit-transform: scale3d(1, 0.005, 1);
-   transform: scale3d(1, 0.005, 1);
-  }
-   100% {
-   -webkit-transform: scale3d(0, 0, 1);
-   transform: scale3d(0, 0, 1);
-  }
-  }
-  @-webkit-keyframes 
-  shutdown-opa {  0% {
-   opacity: 0;
-  }
-   50% {
-   opacity: 1;
-  }
-   100% {
-   opacity: 1;
-  }
-  }
-  @keyframes 
-  shutdown-opa {  0% {
-   opacity: 0;
-  }
-   50% {
-   opacity: 1;
-  }
-   100% {
-   opacity: 1;
-  }
-  }

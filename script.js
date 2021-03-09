@@ -229,6 +229,9 @@ function restartGame() {
     document.location.reload(true);
 }
 function exitToMain() {
+    // show TV power-off animation
+    document.querySelector('.tv').classList.add('_off');
+    document.querySelector('.container').innerHTML = "";
     sleep(500).then(() => {
         window.location.replace("index.html");
     });
@@ -283,6 +286,7 @@ function showModal(str) {
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 const colorSkyBlue = "#87ceeb";
 const colorGreenYellow = "#ADFF2F"
 const colorDarkGreen = "#070"
@@ -306,7 +310,6 @@ const difLvl = (localStorage.getItem("Crypto-Game-Level")) ? localStorage.getIte
         let scrMsg = encryptMsg(orgMsg, scrumbleKey);
         createLeftGrid();
         createMainGrid(orgMsg, scrMsg);
-
         const lgr1 = document.getElementsByClassName("lgr1");
         const lgr2 = document.getElementsByClassName("lgr2");
         const lgr3 = document.getElementsByClassName("lgr3");
