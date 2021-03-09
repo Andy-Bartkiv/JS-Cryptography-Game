@@ -148,7 +148,7 @@ body {
     cursor: context-menu;
 }
 
-.footer-text {
+a.footer-text {
     font-size: 1rem;
     position: fixed;
     left: 50%;
@@ -164,6 +164,6 @@ body {
     cursor: pointer;
     text-decoration: none;
 }
-.footer-text:hover {
+a.footer-text:hover {
     color: var(--prm-color);
 }
