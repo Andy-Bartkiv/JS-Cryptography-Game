@@ -7,7 +7,7 @@
 
 @font-face {
     font-family: telegrama;
-    src: url('../assets/telegrama_raw.ttf');
+    src: url(../assets/telegrama_raw.ttf);
 }
 
 :root {
@@ -38,7 +38,7 @@ div {
 }
 
 body {
-    background: url('../assets/BG.jpg');
+    background: url(../assets/BG.jpg);
     color: var(--txt-color);
 }
 
