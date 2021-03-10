@@ -135,13 +135,6 @@ function countSymbols(msg, sym) {
     return res;
 }
 
-// removing certain sym, positioned at POS index in MSG
-function removeSymbol(msg, pos) {
-    let arr = msg.split("");
-    arr.splice(pos, 1);
-    return arr.join("")
-}
-
 // Scrumble key generator
 function scrumble(msg) {
     return msg.split("")
@@ -159,8 +152,7 @@ function sleep(ms) {
 // GIVE UP mode = showing all letters in original Msg
 function showAllLetters(t=7) {
     if (mode !== 3) {
-        mode = 3; // Game ended by Give-UP
-        score = 0;
+        mode = 3; // Game ended by Give-UP ???? or Win
         // displaying letters from original Msg and fading green letters
         [...bottomCells].forEach((element, i) => {
             sleep(i*t).then(() => { 
@@ -187,6 +179,24 @@ function showAllLetters(t=7) {
     }
 }
 
+function selectRndChar(lvl) {
+    let arrayHint = [];
+    let char = "A";
+    for (let i in abc)
+        if (currentKey[i] === "_" && numbersKey[i] !== 0)
+            arrayHint.push([targetKey[i], numbersKey[i]]);
+    arrayHint.sort((a,b) => b[1] - a[1]);
+    let midInd = Math.round(arrayHint.length / 2);
+    if (lvl <= 1) {
+        char = arrayHint[0][0];
+    } else if (lvl <= 3) {
+        char = rndArr(arrayHint.slice(0,midInd))[0];
+    } else {
+        char = rndArr(arrayHint.slice(midInd))[0];
+    }
+    return char;
+}
+
 // HINT mode = only one letter is showed after iterating through all blue letters
 function showOneLetter(lvl=difLvl, t=7) {
     if (mode !== 3) {
@@ -202,10 +212,9 @@ function showOneLetter(lvl=difLvl, t=7) {
             sleep(t+i*t).then(() => { element.style.backgroundColor = null });
         });
         sleep(t*orgMsg.length).then(() => { 
-            let indexHint = Math.floor(Math.random() * hintKey.length);
-            char = hintKey[indexHint];
-            hintKey = removeSymbol(hintKey, indexHint);
-            if (hintKey.length <= 0) hintKey = "A" ////  !!!!! TO BE CHANGED   
+
+            char = selectRndChar(lvl);
+
             lgr1[abc.indexOf(scrumbleKey[abc.indexOf(char)])].innerHTML = char;
             lgr1[abc.indexOf(scrumbleKey[abc.indexOf(char)])].style.backgroundColor = null;
             lgr1[abc.indexOf(scrumbleKey[abc.indexOf(char)])].style.color = null;
@@ -221,6 +230,7 @@ function showOneLetter(lvl=difLvl, t=7) {
             score = (score < 0) ? 0 : score;
             timerDiv.removeAttribute('style');
             timerDiv.innerHTML = score;
+            checkCurrentKey();
         });
     }
 }
@@ -284,6 +294,18 @@ function showModal(str) {
         }
     }
 }
+function checkCurrentKey() {
+    let res = targetKey.length;
+    currentKey = [];
+    for (let i in abc) {
+        currentKey.push(lgr1[i].textContent);
+        if (currentKey[i] === targetKey[i] || numbersKey[i] === 0)
+            res--; 
+    }
+    if (res + difLvl - 5 <= 0) {// at TRAINEE Lvl you have to guess 5 letters less to win
+        showAllLetters();
+    }
+}
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -291,7 +313,7 @@ const colorSkyBlue = "#87ceeb";
 const colorGreenYellow = "#ADFF2F"
 const colorDarkGreen = "#070"
 const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const difLvl = (localStorage.getItem("Crypto-Game-Level")) ? localStorage.getItem("Crypto-Game-Level") : 1;
+const difLvl = (localStorage.getItem("Crypto-Game-Level")) ? parseInt(localStorage.getItem("Crypto-Game-Level")) : 1;
 
 // Creating message to be coded
 
@@ -332,6 +354,19 @@ const difLvl = (localStorage.getItem("Crypto-Game-Level")) ? localStorage.getIte
         
         animateMainGrid(difLvl, 15);
 
+        let currentKey = [];
+        let targetKey = abc.split("");
+        let numbersKey = [];
+        for (let i in abc) {
+            numbersKey.push(0);
+            targetKey[abc.indexOf(scrumbleKey[i])] = abc[i];
+        }
+        for (let ch of scrMsg) {
+            if (abc.indexOf(ch) >= 0)
+                numbersKey[abc.indexOf(ch)]++; 
+        }
+        checkCurrentKey(); // check WIN condition
+
     // });  //------------ JSON processing closing brackets
 
 // - - -  Menu Buttons
@@ -340,14 +375,13 @@ document.getElementById("btn-hint").addEventListener('click', () => showOneLette
 
 document.getElementById("btn-exit").addEventListener('click', () => exitToMain());
 document.getElementById("btn-restart").addEventListener('click', () => restartGame());
-document.getElementById("btn-giveup").addEventListener('click', () => showAllLetters());
+document.getElementById("btn-giveup").addEventListener('click', () => { score = 0; showAllLetters(); });
 
 // - - - KEYBOARD EVENTS - - -------------------------------------------------------------------------
 document.addEventListener('keydown', event => {
 
     char = String.fromCharCode(event.keyCode);
     index = abc.indexOf(char);
-    console.log(char, index);
 
 // if any letter is pressed ------------------------------------------------------------------------------
     if ((index >= 0) || (event.keyCode == 32)) { // choosing phase
@@ -374,6 +408,9 @@ document.addEventListener('keydown', event => {
             lgr1[abc.indexOf(char2)].innerHTML = (event.keyCode !== 32) ? char : "_";
             lgr1[abc.indexOf(char2)].style.backgroundColor = null;
             lgr1[abc.indexOf(char2)].style.color = null;
+
+            checkCurrentKey();
+
         }
     }
 

@@ -1,6 +1,6 @@
 @font-face {
     font-family: telegrama;
-    src: url('Assets/telegrama_raw.ttf');
+    src: url('/assets/telegrama_raw.ttf');
 }
 * {
     margin: 0;
@@ -17,10 +17,11 @@
 }
 
 body {
-    background: var(--bg-color) url('Assets/BG.jpg');
+    background: var(--bg-color) url('/assets/BG.jpg');
 }
 
 .container {
+    min-width: 320px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -196,6 +197,8 @@ a.footer-text {
     transform: translateX(-50%);
     bottom: 0;
     text-align: center;
+    white-space: nowrap;
+    
     padding: 5px;
     border-top: 2px solid;
     margin-top: 1em;

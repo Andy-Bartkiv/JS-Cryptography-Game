@@ -7,7 +7,7 @@
 
 @font-face {
     font-family: telegrama;
-    src: url('Assets/telegrama_raw.ttf');
+    src: url('/assets/telegrama_raw.ttf');
 }
 
 :root {
@@ -38,7 +38,7 @@ div {
 }
 
 body {
-    background: url('Assets/BG.jpg');
+    background: url('/assets/BG.jpg');
     color: var(--txt-color);
 }
 
@@ -213,11 +213,6 @@ div.flip-box {
     align-items: center;
     width: 100%;
     height: 100%;
-}
-.letter-input div:hover, .letter-input span:hover {
-    transform: scale(2) translateY(-20%);
-    transition: 0.25s;
-    cursor: pointer;
 }
 
 /* --------------------------- CENTRAL FLEX-container */
