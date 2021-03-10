@@ -12,29 +12,38 @@
 </head>
 
 <body onload="displayScore()">
-    <div class="box-info">
-        <button onclick="document.location = 'infoCW.html'" class="btn-info">Info & Rules</button>
-    </div>
+    <div class="tv">
+        <div class="container">
 
-    <a href="gameCW.html" class="btn">
-        <span></span>
-        <span></span>
-        S t a r t
-    </a>
-    <div class="box">
-        <select id="level" onchange="setLevel()">
-            <option value="0">TRAINEE.....000</option>
-            <option value="1" selected>BEGINNER....300</option>
-            <option value="2">EASY........600</option>
-            <option value="3">NORMAL......900</option>
-            <option value="4">EXPERT.....1200</option>
-            <option value="5">MASTERMIND.1500</option>
-        </select>
-    </div>
+            <div class="box-info">
+                <button class="btn-info" id="btn-info">Info & Rules</button>
+            </div>
 
+            <!-- <a href="gameCW.html" class="btn"> -->
+            <div class="btn" id="btn-start">
+                <span></span>
+                <span></span>
+                S t a r t
+            </div>
+
+            <div class="box">
+                <select id="level" onchange="setLevel()">
+                    <option value="0">TRAINEE.....000</option>
+                    <option value="1" selected>BEGINNER....300</option>
+                    <option value="2">EASY........600</option>
+                    <option value="3">NORMAL......900</option>
+                    <option value="4">EXPERT.....1200</option>
+                    <option value="5">MASTERMIND.1500</option>
+                </select>
+            </div>
+
+        </div> <!-- .container -->
+    </div> <!-- .tv -->
+    
     <div class="footer">
         <a href="https://github.com/Andy-Bartkiv/JS-Cryptography-Game" class="footer-text" target="_blank">@2020 Andy Bartkiv <i class="fab fa-github"></i></a>
     </div>
+
 </body>
 
     <script>
@@ -55,8 +64,21 @@
             document.getElementById("level").value = localStorage.getItem("Crypto-Game-Level");
             } else {
                 alert("Sorry, your browser does not support Web Storage...");
+            }
         }
-    }
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        function exitTo(location, t = 500) {
+        // show TV power-off animation
+            document.querySelector('.tv').classList.add('_off');
+            document.querySelector('.container').innerHTML = "";
+            sleep(t).then(() => {
+                window.location.replace(location);
+            });
+        }
+        document.getElementById("btn-info").addEventListener('click', () => exitTo("infoCW.html"));   
+        document.getElementById("btn-start").addEventListener('click', () => exitTo("gameCW.html"));   
     </script>
 
 </html>
