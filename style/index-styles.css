@@ -1,6 +1,6 @@
 @font-face {
     font-family: telegrama;
-    src: url('/assets/telegrama_raw.ttf');
+    src: url('../assets/telegrama_raw.ttf');
 }
 * {
     margin: 0;
@@ -17,7 +17,7 @@
 }
 
 body {
-    background: var(--bg-color) url('/assets/BG.jpg');
+    background: var(--bg-color) url('../assets/BG.jpg');
 }
 
 .container {
