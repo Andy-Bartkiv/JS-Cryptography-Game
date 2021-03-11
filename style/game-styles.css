@@ -10,6 +10,11 @@
     src: url(../assets/telegrama_raw.ttf);
 }
 
+@font-face {
+    font-family: jbmb;
+    src: url(../assets/JetBrainsMono-BoldItalic.ttf);
+}
+
 :root {
     --color-dark-grey: #090909;
     --color-green: #003900;
@@ -167,7 +172,7 @@ div.flip-box {
     white-space: nowrap;
     font-size: 0.65em;
     font-weight: bolder;
-    font-family: monospace;
+    font-family: jbmb, monospace;
     visibility: hidden;
     width: 1.2rem;
     background-color: #003900dd;
@@ -205,6 +210,7 @@ div.flip-box {
 #btn-hint {
     font-size: 0.75em;
     color: var(--cyan-color);
+    font-family: jbmb, monospace;
 }
 /* Mouse driven Letter Input --------------------------- */
 .letter-input {
@@ -213,6 +219,33 @@ div.flip-box {
     align-items: center;
     width: 100%;
     height: 100%;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown:hover {
+    color: var(--cyan-color);
+    cursor: pointer;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 0.5rem;
+    width: 84vw;
+    max-width: 125vh;
+    transform: translateX(-49%);
+    z-index: 1;
+    border: 1px solid var(--border-color);
+    background-color: #000029;
+    color: var(--txt-color);
+    font-family: jbmb, monospace;
+    font-size: 0.75em;
+    line-height: 1.5;
+    padding: 0.5em;
+} 
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 /* --------------------------- CENTRAL FLEX-container */
@@ -256,19 +289,22 @@ div.flip-box {
   /* Modal Content */
 .modal-content {
     position: inherit;
-    background-color: var(--bg-color);
-    color: var(--txt-color);
-    font-family: monospace, arial;
-    line-height: 1.6;
+    background-color: var(--border-color);
+    color: var(--color-dark-grey);
+    font-family: jbmb, monospace;
+    /* font-weight: 900; */
+    line-height: 1.5;
     margin: auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 0.25rem;
-    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    padding-left: 0.5rem;
+    border: 1px solid var(--color-dark-grey);
     width: max-content;
     width: fit-content;
-    max-width: 80%;
+    max-width: 90%;
+    min-height: 80%;
 }
 
 

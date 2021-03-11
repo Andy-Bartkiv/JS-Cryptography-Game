@@ -169,7 +169,7 @@ function showAllLetters(t=7) {
         sleep(topCells.length*t).then (() => {
             msgDiv.style.color = colorGreenYellow;
             timerDiv.style.color = colorGreenYellow;
-            document.getElementsByClassName("letter-input")[0].style.color = "transparent";
+            document.getElementsByClassName("dropdown")[0].style.visibility = "hidden";
             msgDiv.innerHTML = "MSG DECODED";
             // show original Msg in separate window.
             showModal(sourceMsg);
@@ -178,7 +178,7 @@ function showAllLetters(t=7) {
         for (let i in abc) lgr1[abc.indexOf(scrumbleKey[i])].innerHTML = abc[i];
     }
 }
-
+// Randomly Select Char on request to help user decode the Msg
 function selectRndChar(lvl) {
     let arrayHint = [];
     let char = "A";
@@ -286,6 +286,12 @@ function splitByDot(str) {
 function showModal(str) {
     let modal = document.getElementById("myModal");
     modal.style.display = "block";
+    let decDate = new Date().toUTCString();
+    str = `${msgNum.replace(".","-")}.` +
+        `Score: ${score} / ${difLvl*60*5}.` +
+        `Intercepted: ${intDate}.` +
+        `Decoded: ${decDate}.` +
+        `<br> ${str}`;
     document.getElementById("modal-text").innerHTML= splitByDot(str);
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
@@ -322,6 +328,7 @@ const difLvl = (localStorage.getItem("Crypto-Game-Level")) ? parseInt(localStora
 //     .then(data => {
 
         let sourceMsg  = generateMsg(data, difLvl);
+        let intDate = new Date().toUTCString();
 
         // sourceMsg = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, itaque? Eos deleniti quisquam, odio cum quidem reiciendis velit incidunt dolorem cupiditate laborum tempora nisi pariatur sapiente necessitatibus? Reprehenderit numquam eveniet harum, consequatur ab totam assumenda. Cupiditate repellendus, voluptates exercitationem nostrum magni inventore dolorem sed eveniet recusandae consequuntur excepturi libero nihil officiis facere eos beatae cumque culpa corporis harum ipsum. Illo praesentium quae libero eum aliquam quis corporis commodi sequi."
 
