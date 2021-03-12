@@ -1,48 +1,3 @@
-let data = { // UGLY substitution to FETCH JSON 
-    "city":["Washington", "Bogota", "Caracas", "Havana", "Kingston", "Los Angeles", "Managua", "Medellin", "Mexico City", "Miami", "Nassau", "Panama City", "Rio de Janeiro", "San Juan"],
-    "crimOrg":["Amazon Cartel", "Colombian Cartel", "Haitian Junta", "Jamaican Gang", "Tupamaros", "FLN", "M18", "Shining Way", "Mercenaries", "Dignity Battalion", "Death Squads"],
-    "target":["Air-Base ID cards", "Embassy Visitor Passes", "Summit ID Documents"],
-    "coreMsg":["We have a job for you. I hope your lockpicks are in order. A sample ${targ} is required. Acquire one and report to the paymaster.",
-              "You are required to make a sensitive delivery. Bring a wrist-cuffed briefcase.",
-              "The ${targ} has been acquired. Awaiting further instructions and payment.",
-              "You are to pick up the ${targ} and deliver it to our special operative.",
-              "I represent your employer. Turn the ${targ} over to me. Don't worry about payment - your check is already in the mail.",
-              "Apply your special talents to this item. A perfect duplicate is required. We will make it worth your while."
-            ],
-    "bshtMsg":["None doubt your loyalty.",
-            "Some aspects of the situation remain unclear.",
-            "Our enemies are on the verge of collapse.",
-            "Your organization is noted for these activities and your assistance will be rewarded.",
-            "Deviations from this plan are not acceptable.",
-            "Destiny is our ally.",
-            "Our power increases with each passing day."
-            ],
-    "c1Msg":["Our project here in ${city1} proceeds on schedule.",
-            "Our recruiting in ${city1} has been quite successful.",
-            "The struggle in ${city1} advances from triumph to victory.",
-            "Having a wonderful time in ${city1} wish you were here.",
-            "All ${city1} echoes with praise of your success."
-            ],
-    "c2Msg":["We are confident your work in ${city2} will continue on schedule.",
-            "Send us details of your activities in ${city2}.",
-            "How is ${city2} this time of year.",
-            "Take precautions ${city2} is dangerous.",
-            "Send us details of your activities in ${city2}."
-            ],
-    "o1Msg":["${org1} is ready to reward you for your success.",
-            "${org1} may be assisting in this operation.",
-            "${org1} is ready to reward you for your success.",
-            "This operation has the approval of ${org1} high command.",
-            "We of the ${org1} commend your excellent work."
-            ],
-    "o2Msg":["Fellow warriors of the ${org2} now is the time for action.",
-            "We welcome cooperation with the ${org2}.",
-            "Thanks for your assistance ${org2}.",
-            "Your success assures the goodwill of ${org2}.",
-            "We note the heroic actions of the ${org2}."
-            ]
-}
-
 function createMainGrid(msg1, msg2) {
     let c1 = c2 = "_";
     for (let i in msg1) {
@@ -60,7 +15,6 @@ function createMainGrid(msg1, msg2) {
         document.getElementById("main-grid").appendChild(newDiv);
     }
 }
-
 function createLeftGrid() {
     for (let i in abc) {
         for (let j=1; j<4; j++) { // filling left grid by rows
@@ -71,10 +25,10 @@ function createLeftGrid() {
         }
     }
 }
-
-// Initial green letters of scrumbled msg slowly appears in game terminal  
+// Initial green letters of scrambled msg slowly appears in game terminal  
 function animateMainGrid(lvl, t=25) {
     mode = 3;
+    const topCells = document.getElementsByClassName("cell-top");
     [...topCells].forEach((element, i) => {
         sleep(i*t).then(() => {
             bottomCells[i].style.color = null; 
@@ -105,10 +59,10 @@ function generateMsg(data, difLvl) {
     let msgObj = createMsgItems(data);
     msgBody = rndArr(data.coreMsg);
     if (difLvl <= 5) msgBody += " " + rndArr(data.bshtMsg);
-    if (difLvl <= 4) msgBody =  rndArr(data.o1Msg) + " " + msgBody;
-    if (difLvl <= 3) msgBody += " " + rndArr(data.c1Msg);
-    if (difLvl <= 2) msgBody += " " + rndArr(data.c2Msg);
-    if (difLvl <= 1) msgBody += " " + rndArr(data.o2Msg);
+    if (difLvl <= 4) msgBody =  rndArr(data.o2Msg) + " " + msgBody;
+    if (difLvl <= 3) msgBody += " " + rndArr(data.c2Msg);
+    if (difLvl <= 2) msgBody += " " + rndArr(data.c1Msg);
+    if (difLvl <= 1) msgBody += " " + rndArr(data.o1Msg);
     return replaceNames(msgBody, msgObj);
 }
 
@@ -135,7 +89,7 @@ function countSymbols(msg, sym) {
     return res;
 }
 
-// Scrumble key generator
+// Scramble key generator
 function scrumble(msg) {
     return msg.split("")
     .map((a) => ({ sort: Math.random(), value: a }))
@@ -314,56 +268,53 @@ function checkCurrentKey() {
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
 const colorSkyBlue = "#87ceeb";
 const colorGreenYellow = "#ADFF2F"
 const colorDarkGreen = "#070"
 const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const difLvl = (localStorage.getItem("Crypto-Game-Level")) ? parseInt(localStorage.getItem("Crypto-Game-Level")) : 1;
 
-// Creating message to be coded
+const timerDiv = document.getElementById("timer");
+const msgDiv = document.getElementById("msg");
+createLeftGrid(); // left-side part of Crypto-Terminal
+let lgr1, lgr2, lgr3, topCells, bottomCells; // variables for DOM manipulation
 
-// fetch('/json/test.json')
-//     .then(response => response.json())
-//     .then(data => {
+let mode = 1; // Game mode:0=first letter selected, 1=normal flow, 3=animation in progress
 
-        let sourceMsg  = generateMsg(data, difLvl);
-        let intDate = new Date().toUTCString();
+let sourceMsg, orgMsg, scrumbleKey, scrMsg, intDate; // variables for Message creation and decoding
+let currentKey = [];
+let targetKey = abc.split("");
+let numbersKey = [];
+let idMg = [];
+let char = char2 = "A";
 
-        // sourceMsg = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, itaque? Eos deleniti quisquam, odio cum quidem reiciendis velit incidunt dolorem cupiditate laborum tempora nisi pariatur sapiente necessitatibus? Reprehenderit numquam eveniet harum, consequatur ab totam assumenda. Cupiditate repellendus, voluptates exercitationem nostrum magni inventore dolorem sed eveniet recusandae consequuntur excepturi libero nihil officiis facere eos beatae cumque culpa corporis harum ipsum. Illo praesentium quae libero eum aliquam quis corporis commodi sequi."
+let msgNum = "MSG #";
+let score = difLvl * 60 * 5;
+timerDiv.innerHTML = score;
 
-        let orgMsg = filterMsg(sourceMsg.toUpperCase(), difLvl);
-
+// Creating message to be decoded
+fetch('/json/test.json')
+    .then(response => response.json())
+    .then(data => {
+        sourceMsg  = generateMsg(data, difLvl);
+        intDate = new Date().toUTCString(); // time of Msg "intercepted"
+        // Filtering the original Msg, depending on difficulty lvl 
+        orgMsg = filterMsg(sourceMsg.toUpperCase(), difLvl);
         // SCRUMBLING ABC-order to get a random encryption Key//
-        let scrumbleKey = scrumble(abc);
-        let scrMsg = encryptMsg(orgMsg, scrumbleKey);
-        createLeftGrid();
+        scrumbleKey = scrumble(abc);
+        // Encrypting filtered Msg according to the key.
+        scrMsg = encryptMsg(orgMsg, scrumbleKey);
         createMainGrid(orgMsg, scrMsg);
-        const lgr1 = document.getElementsByClassName("lgr1");
-        const lgr2 = document.getElementsByClassName("lgr2");
-        const lgr3 = document.getElementsByClassName("lgr3");
-        const topCells = document.getElementsByClassName("cell-top");
-        const bottomCells = document.getElementsByClassName("cell-bottom");
-        const timerDiv = document.getElementById("timer");
-        const msgDiv = document.getElementById("msg");
-        let mode = 1; // Game mode: 1=normal flow, 3=animation in progress
-
-        // key used to count hints (each time excludes one letter from this key)
-        let hintKey = abc.split("").filter(ch => countSymbols(orgMsg, ch) > 0).join("");
-        let idMg = [];
-        let char = char2 = "A";
-        
-        const msgNum = "MSG #" + orgMsg[0] + difLvl + "." + orgMsg.length;
+        lgr1 = document.getElementsByClassName("lgr1");
+        lgr2 = document.getElementsByClassName("lgr2");
+        lgr3 = document.getElementsByClassName("lgr3");
+        topCells = document.getElementsByClassName("cell-top");
+        bottomCells = document.getElementsByClassName("cell-bottom");
+        msgNum = "MSG #" + orgMsg[0] + difLvl + "." + orgMsg.length;
         msgDiv.innerHTML = msgNum;
-        
-        let score = difLvl * 60 * 5;
-        timerDiv.innerHTML = score;
         
         animateMainGrid(difLvl, 15);
 
-        let currentKey = [];
-        let targetKey = abc.split("");
-        let numbersKey = [];
         for (let i in abc) {
             numbersKey.push(0);
             targetKey[abc.indexOf(scrumbleKey[i])] = abc[i];
@@ -373,24 +324,19 @@ const difLvl = (localStorage.getItem("Crypto-Game-Level")) ? parseInt(localStora
                 numbersKey[abc.indexOf(ch)]++; 
         }
         checkCurrentKey(); // check WIN condition
-
-    // });  //------------ JSON processing closing brackets
+    });  // --- JSON processing closing brackets
 
 // - - -  Menu Buttons
-
 document.getElementById("btn-hint").addEventListener('click', () => showOneLetter());
-
 document.getElementById("btn-exit").addEventListener('click', () => exitToMain());
 document.getElementById("btn-restart").addEventListener('click', () => restartGame());
 document.getElementById("btn-giveup").addEventListener('click', () => { score = 0; showAllLetters(); });
 
 // - - - KEYBOARD EVENTS - - -------------------------------------------------------------------------
 document.addEventListener('keydown', event => {
-
     char = String.fromCharCode(event.keyCode);
     index = abc.indexOf(char);
-
-// if any letter is pressed ------------------------------------------------------------------------------
+// if any letter is pressed --------------------------------------------------------------------------
     if ((index >= 0) || (event.keyCode == 32)) { // choosing phase
         if ((mode == 1) && (event.keyCode != 32)) {// cannot choose " " to substitute
             mode = 0; char2 = char;
@@ -416,9 +362,7 @@ document.addEventListener('keydown', event => {
             lgr1[abc.indexOf(char2)].style.backgroundColor = null;
             lgr1[abc.indexOf(char2)].style.color = null;
 
-            checkCurrentKey();
-
+            checkCurrentKey(); // check WIN condition
         }
     }
-
 }); // END OF KEYBOARD EVENT LISTENER --------------------------------------

@@ -1,13 +1,17 @@
 {
     "city":["Washington", "Bogota", "Caracas", "Havana", "Kingston", "Los Angeles", "Managua", "Medellin", "Mexico City", "Miami", "Nassau", "Panama City", "Rio de Janeiro", "San Juan"],
-    "crimOrg":["Amazon Cartel", "Colombian Cartel", "Haitian Junta", "Jamaican Gang", "Tupamaros", "FLN", "M18", "Shining Way", "Mercenaries", "Dignity Battalion", "Death Squads"],
+    "crimOrg":["Amazon Cartel", "Colombian Cartel", "Haitian Junta", "Jamaican Gang", "Tupamaros", "FLN", "M18", "Shining Way", "Mercenaries", "Dignity Battalion", "Death Squads", "Mafia", "KGB", "Direct Action", "Marxists"],
     "target":["Air-Base ID cards", "Embassy Visitor Passes", "Summit ID Documents"],
     "coreMsg":["We have a job for you. I hope your lockpicks are in order. A sample ${targ} is required. Acquire one and report to the paymaster.",
               "You are required to make a sensitive delivery. Bring a wrist-cuffed briefcase.",
               "The ${targ} has been acquired. Awaiting further instructions and payment.",
               "You are to pick up the ${targ} and deliver it to our special operative.",
               "I represent your employer. Turn the ${targ} over to me. Don't worry about payment - your check is already in the mail.",
-              "Apply your special talents to this item. A perfect duplicate is required. We will make it worth your while."
+              "Apply your special talents to this item. A perfect duplicate is required. We will make it worth your while.",
+              "Rumors indicate that Max Remington may be assisting the CIA on this case. This does not worry me in the least.",
+              "Our operation went off like clockwork. These items are to be delivered to the Mastermind.",
+              "We need you to build an alarm bypass box for our current operation. A courier is standing by to deliver the box.",
+              "Our operation has been successfully completed. Do not hesitate to call us again for additional operations."
             ],
     "bshtMsg":["None doubt your loyalty.",
             "Some aspects of the situation remain unclear.",
@@ -15,30 +19,41 @@
             "Your organization is noted for these activities and your assistance will be rewarded",
             "Deviations from this plan are not acceptable.",
             "Destiny is our ally.",
-            "Our power increases with each passing day."
+            "Our power increases with each passing day.",
+            "Remember who you are dealing with here.",
+            "Extreme measure may be called for."
             ],
     "c1Msg":["Our project here in ${city1} proceeds on schedule.",
             "Our recruiting in ${city1} has been quite successful.",
             "The struggle in ${city1} advances from triumph to victory.",
             "Having a wonderful time in ${city1} wish you were here.",
-            "All ${city1} echoes with praise of your success."
+            "All ${city1} echoes with praise of your success.",
+            "Enemy activity in ${city1} has been moderate.",
+            "Greetings from ${city1}"
             ],
     "c2Msg":["We are confident your work in ${city2} will continue on schedule.",
             "Send us details of your activities in ${city2}.",
             "How is ${city2} this time of year.",
             "Take precautions ${city2} is dangerous.",
-            "Send us details of your activities in ${city2}."
+            "Send us details of your activities in ${city2}.",
+            "We are aware of your current situation in ${city2}.",
+            "All true comrades admire your work in ${city2}.",
+            "With you in ${city2} our cause cannot fail.",
+            "I’m planning to visit ${city2} shortly."
             ],
     "o1Msg":["${org1} is ready to reward you for your success.",
             "${org1} may be assisting in this operation.",
-            "${org1} is ready to reward you for your success.",
+            "The ${org1} is ready for action.",
             "This operation has the approval of ${org1} high command.",
-            "We of the ${org1} commend your excellent work."
+            "We of the ${org1} commend your excellent work.",
+            "Those who serve ${org1} are well rewarded."
             ],
     "o2Msg":["Fellow warriors of the ${org2} now is the time for action.",
             "We welcome cooperation with the ${org2}.",
             "Thanks for your assistance ${org2}.",
             "Your success assures the goodwill of ${org2}.",
-            "We note the heroic actions of the ${org2}."
+            "We note the heroic actions of the ${org2}.",
+            "Victory to our colleagues in the ${org2}.",
+            "Salutations to our loyal comrades of the ${org2}."
             ]
 }

@@ -229,7 +229,7 @@ div.flip-box {
     cursor: pointer;
 }
 .dropdown-content {
-    display: none;
+    /* display: none; */
     position: absolute;
     top: 0.5rem;
     width: 84vw;
@@ -243,9 +243,14 @@ div.flip-box {
     font-size: 0.75em;
     line-height: 1.5;
     padding: 0.5em;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.75s;
 } 
 .dropdown:hover .dropdown-content {
-    display: block;
+    /* display: block; */
+    visibility: visible;
+    opacity: 1;
 }
 
 /* --------------------------- CENTRAL FLEX-container */
