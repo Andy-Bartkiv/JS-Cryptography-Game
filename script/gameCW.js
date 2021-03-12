@@ -48,8 +48,8 @@ function animateMainGrid(lvl, t=25) {
         }
         if (lvl == 1) showOneLetter(0,5)
         setInterval(function(){ 
-            if (score >= 0 && mode == 1) score -= 1;
-            if (score < 0) score = 0;
+            if (score > 0 && mode == 1) score -= 1;
+            if (score <= 0) score = "000";
             timerDiv.innerHTML = score;
         }, 1000);
     });
@@ -59,9 +59,9 @@ function generateMsg(data, difLvl) {
     let msgObj = createMsgItems(data);
     msgBody = rndArr(data.coreMsg);
     if (difLvl <= 5) msgBody += " " + rndArr(data.bshtMsg);
-    if (difLvl <= 4) msgBody =  rndArr(data.o2Msg) + " " + msgBody;
-    if (difLvl <= 3) msgBody += " " + rndArr(data.c2Msg);
-    if (difLvl <= 2) msgBody += " " + rndArr(data.c1Msg);
+    if (difLvl <= 4) msgBody =  rndArr(data.c2Msg) + " " + msgBody;    
+    if (difLvl <= 3) msgBody += " " + rndArr(data.c1Msg);
+    if (difLvl <= 2) msgBody = rndArr(data.o2Msg) + " " + msgBody;
     if (difLvl <= 1) msgBody += " " + rndArr(data.o1Msg);
     return replaceNames(msgBody, msgObj);
 }
@@ -181,7 +181,7 @@ function showOneLetter(lvl=difLvl, t=7) {
             }
             mode = 1;
             score -= lvl*15; 
-            score = (score < 0) ? 0 : score;
+            score = (score <= 0) ? "000" : score;
             timerDiv.removeAttribute('style');
             timerDiv.innerHTML = score;
             checkCurrentKey();
@@ -289,7 +289,7 @@ let idMg = [];
 let char = char2 = "A";
 
 let msgNum = "MSG #";
-let score = difLvl * 60 * 5;
+let score = (difLvl === 0) ? "000" : difLvl * 60 * 5;
 timerDiv.innerHTML = score;
 
 // Creating message to be decoded
@@ -330,7 +330,7 @@ fetch('./json/data.json')
 document.getElementById("btn-hint").addEventListener('click', () => showOneLetter());
 document.getElementById("btn-exit").addEventListener('click', () => exitToMain());
 document.getElementById("btn-restart").addEventListener('click', () => restartGame());
-document.getElementById("btn-giveup").addEventListener('click', () => { score = 0; showAllLetters(); });
+document.getElementById("btn-giveup").addEventListener('click', () => { score = "000"; showAllLetters(); });
 
 // - - - KEYBOARD EVENTS - - -------------------------------------------------------------------------
 document.addEventListener('keydown', event => {
