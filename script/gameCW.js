@@ -242,7 +242,7 @@ function showModal(str) {
     modal.style.display = "block";
     let decDate = new Date().toUTCString();
     str = `${msgNum.replace(".","-")}.` +
-        `Score: ${score} / ${difLvl*60*5}.` +
+        `Score: ${parseInt(score)} / ${maxScore}.` +
         `Intercepted: ${intDate}.` +
         `Decoded: ${decDate}.` +
         `<br> ${str}`;
@@ -289,7 +289,8 @@ let idMg = [];
 let char = char2 = "A";
 
 let msgNum = "MSG #";
-let score = (difLvl === 0) ? "000" : difLvl * 60 * 5;
+const maxScore = (difLvl === 0) ? "000" : difLvl * 60 * 5;
+let score = maxScore;
 timerDiv.innerHTML = score;
 
 // Creating message to be decoded
