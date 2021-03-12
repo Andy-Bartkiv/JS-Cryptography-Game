@@ -293,7 +293,7 @@ let score = difLvl * 60 * 5;
 timerDiv.innerHTML = score;
 
 // Creating message to be decoded
-fetch('/json/test.json')
+fetch('../json/test.json')
     .then(response => response.json())
     .then(data => {
         sourceMsg  = generateMsg(data, difLvl);
