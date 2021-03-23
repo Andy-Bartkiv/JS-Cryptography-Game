@@ -81,6 +81,11 @@ nav>header {
     padding-left: 4px;
 }
 
+#return-a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
 #return-bttn {
     text-align: center;
     line-height: 1;
@@ -165,6 +170,12 @@ footer {
     }
     #return-bttn {
         display: none;
+    }
+    #return-a {
+        color: var(--sec-color);
+    }
+    #return-a:hover {
+        color: var(--prm-color);
     }
     .nav-div {
         border-top: 1px solid;

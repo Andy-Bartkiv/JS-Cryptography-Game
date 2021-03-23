@@ -2,27 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cryptography Game - Menu</title>
+    <title>Digital Rain</title>
     <link rel="icon" type="image/png" href="assets/icon.png">
-    <link rel="stylesheet" href="style/index-styles.css">
+    <link rel="stylesheet" href="style/index-style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
 </head>
 <body onload="displayScore()">
-    <div class="tv">
-        <div class="container">
+  <div class="tv">
+    <div class="container">
 
-            <div class="box-info">
-                <button class="btn-info" id="btn-info">
-                    <div>Info & Rules</div>
-                </button>
-            </div>
+      <div class="inner-cont">
 
-            <!-- <a href="gameCW.html" class="btn"> -->
-            <div class="btn" id="btn-start">
-                <span></span>
-                <span></span>
-                <div>S t a r t</div>
+          <div class="box-info">
+              <button class="btn-info" id="btn-info">
+                  <div>Info & Rules</div>
+              </button>
+          </div>
+          
+          <div class="btn" id="btn-start">
+              <span></span>
+              <span></span>
+              <div>S t a r t</div>
             </div>
 
             <div class="box">
@@ -36,15 +38,17 @@
                 </select>
             </div>
 
-        </div> <!-- .container -->
-    </div> <!-- .tv -->
+            <div class="footer">
+                <a href="https://github.com/Andy-Bartkiv/JS-Cryptography-Game" class="footer-text" target="_blank">@2020 Andy Bartkiv <i class="fab fa-github"></i></a>
+            </div>
+      </div>
+
+      <div class="main-grid"></div>
     
-    <div class="footer">
-        <a href="https://github.com/Andy-Bartkiv/JS-Cryptography-Game" class="footer-text" target="_blank">@2020 Andy Bartkiv <i class="fab fa-github"></i></a>
-    </div>
+    </div> <!-- .container -->
+</div> <!-- .tv -->
 
+    <script src="script/main.js"></script>
+    <script src="script/index.js"></script>
 </body>
-
-<script src="script/index.js"></script>
-
 </html>
